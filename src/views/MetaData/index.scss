@@ -1,0 +1,26 @@
+@import '../../common/css/rem';
+@import '../../common/css/const';
+.Metagenome-outer {
+  height: 100%;
+  width: 100%;
+}
+.el-container {
+  height: 100%;
+}
+.el-col .grid-content {
+  line-height: 60px;
+}
+
+.el-aside {
+  background-color: #D3DCE6;
+  color: #333;
+}
+
+.el-main {
+  background-color: #E9EEF3;
+  color: #333;
+  line-height: 160px;
+}
+.mm-trees-wrap {
+
+}
