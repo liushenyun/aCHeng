@@ -1,12 +1,12 @@
 <template>
-  <div class="Metagenome-outer">
+  <div class="MetaData-outer">
     <el-container>
-      <el-aside width="200px">
-        <h4>projects</h4>
+      <el-aside width="300px">
         <div class="search-outer">
-          <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
+          <el-input placeholder="请输入内容" v-model="input3" class="Meta-input-1">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
+          <el-button type="primary" icon="el-icon-download" class="Meta-input-2"></el-button>
         </div>
         <div class="mm-trees-wrap">
           <el-tree
@@ -20,7 +20,9 @@
       </el-aside>
       <el-container>
         <el-main>
-          <p>信息展示</p>
+          <el-card shadow="always">
+            总是显示
+          </el-card>
         </el-main>
       </el-container>
     </el-container>

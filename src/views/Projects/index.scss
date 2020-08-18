@@ -1,6 +1,7 @@
-@import '../../common/css/rem';
 @import '../../common/css/const';
 .PROJECT-outer {
+  padding: 0 8px;
+  width: 100%;
   .el-input-group{
     width: 300px;
   }

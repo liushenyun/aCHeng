@@ -5,9 +5,6 @@ import store from './store/index'
 import 'element-ui/lib/theme-chalk/index.css';
 
 // import ajaxFun from './service/requestFun'
-import LinkageBase from './components/linkageBase';
-import PickerS from './components/PickerS/index'
-import ShowScan from './components/ShowScan/index'
 import EventQueue from './common/js/eventQueue'
 import { Button,
   Row,
@@ -24,9 +21,12 @@ import { Button,
   CheckboxGroup,
   Table,
   Icon,
+  Link,
+  Card,
   Input,
   TableColumn,
   Footer } from 'element-ui';
+Vue.use(Card);
 Vue.use(Input);
 Vue.use(Icon);
 Vue.use(Table);
@@ -39,16 +39,13 @@ Vue.use(Header);
 Vue.use(Aside);
 Vue.use(Tree);
 Vue.use(Main);
+Vue.use(Link);
 Vue.use(Tabs);
 Vue.use(Checkbox);
 Vue.use(CheckboxButton);
 Vue.use(CheckboxGroup);
 Vue.use(TabPane);
 Vue.use(Footer);
-Vue.use(PickerS);
-Vue.use(ShowScan);
-Vue.use(LinkageBase);
-
 Object.assign(Vue.prototype, {
   // $toast: Toast,
   $eventQueue: new EventQueue()

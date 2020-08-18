@@ -1,25 +1,37 @@
-@import '../../common/css/rem';
 @import '../../common/css/const';
 .Metagenome-outer {
   height: 100%;
   width: 100%;
+  h4 {
+    line-height: 60px;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  .el-aside {
+    padding-left: 20px;
+  }
+  .mmc-link{
+    span,a {
+      font-size: 14px;
+      padding: 0 10px;
+    }
+    margin-bottom: 8px;
+  }
 }
 .el-container {
   height: 100%;
 }
 .el-col .grid-content {
-  line-height: 60px;
+  // line-height: 60px;
 }
 
 .el-aside {
-  background-color: #D3DCE6;
   color: #333;
 }
 
 .el-main {
-  background-color: #E9EEF3;
   color: #333;
-  line-height: 160px;
+  // line-height: 160px;
 }
 .mm-trees-wrap {
 

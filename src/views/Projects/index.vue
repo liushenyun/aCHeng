@@ -1,7 +1,6 @@
 <template>
   <div class="PROJECT-outer">
-    <p>projects</p>
-    <div class="search-outer">
+    <div class="search-outer" style="margin-bottom: 10px">
       <el-input placeholder="请输入内容" v-model="input3" class="input-with-select">
         <el-button slot="append" icon="el-icon-search"></el-button>
       </el-input>
@@ -10,32 +9,33 @@
         <el-table
           :data="tableData"
           style="width: 100%"
+          border
           height="250">
           <el-table-column
             fixed
             prop="date"
-            label="日期"
-            width="150">
+            label="Project"
+            width="">
           </el-table-column>
           <el-table-column
             prop="name"
-            label="姓名"
-            width="120">
+            label="Tags"
+            width="">
           </el-table-column>
           <el-table-column
             prop="province"
-            label="省份"
-            width="120">
+            label="sampleNumber"
+            width="">
           </el-table-column>
           <el-table-column
             prop="city"
-            label="市区"
-            width="120">
+            label="Published Year"
+            width="">
           </el-table-column>
           <el-table-column
             prop="address"
-            label="下载数据"
-            width="300">
+            label="Download"
+            width="">
             <template slot-scope="scope">
               <el-button
                 icon="el-icon-download"

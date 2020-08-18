@@ -5,7 +5,6 @@ import Store from '../store'
 import qs from 'qs';
 import formatParams from '../utils/formatParams';
 // import { addCommonParams } from './paramsFormat'
-import { getWeCodeA } from './requestFun'
 import { getToken } from '../common/js/ut'
 axios.defaults.baseURL = baseUrl;
 axios.defaults.timeout = 50000;
@@ -59,24 +58,11 @@ const fetchs = (options, fun) => {
       .then(response => {
         setTimeout(_closeLoading, 500);
         let { status, data } = response
-        let errorCode = data.code === undefined ? 'none' : Number(data.code)
-        let errMsg = data.msg
         let result = data.data
-          console.log(errMsg, errorCode)
+          console.log(64, status, data)
           // debugger
         if (status == 200) {
-          if (errorCode == 0) {
-             resolve(result)
-          } else if (errorCode == 401) {
-            getWeCodeA(APP_ID)
-            reject(errMsg)
-          } else if (errorCode == 403) {
-            Store.dispatch('showScan', false)
-            reject(errMsg)
-          } else {
-            reject(errMsg)
-            Vue.prototype.$toast(errMsg)
-          }
+          resolve(result)
         } else {
           Vue.prototype.$toast('系统错误')
         }

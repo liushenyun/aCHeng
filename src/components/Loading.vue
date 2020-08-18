@@ -19,15 +19,14 @@ export default {
 </script>
 
 <style lang="scss">
-@import "../common/css/rem";
 @import "../common/css/mixin";
 #loading{
   @include over;
   @include flex(center, center);
   background-color: rgba(255, 255, 255, 0.5);
   .box{
-    height: rem(120);
-    width: rem(120);
+    height: 120px;
+    width: 120px;
   }
 }
 </style>

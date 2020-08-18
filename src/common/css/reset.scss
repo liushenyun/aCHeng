@@ -1,4 +1,3 @@
-@import './rem.scss';
 @import './const.scss';
 // @font-face {
 //   font-family: 'PingFang';
@@ -89,57 +88,3 @@ textarea {
   scrollbar-base-color:#fff;
   scrollbar-track-color:#fff;
 }
-
-.pub-textarea {
-  margin-bottom: rem(18);
-  border: rem(1) solid #666;
-  height: rem(236);
-  width: 100%;
-  font-size: $size-a;
-  padding: rem(10) rem(6);
-  border-radius: rem(6);
-}
-
-.pub-input {
-  margin-bottom: rem(18);
-  border: rem(1) solid #666;
-  width: 100%;
-  height: rem(56);
-  font-size: $size-a;
-  padding: 0 rem(6);
-  border-radius: rem(6)
-}
-
-.wait-wrap {
-  padding-top: rem(100);
-  text-align: center;
-  img {
-    width: rem(444);
-    height: rem(314);
-    margin-bottom: rem(98);
-  }
-  p {
-    color: #EAA01E;
-    font-size: rem(40);
-    line-height: rem(56);
-    letter-spacing: rem(10);
-    font-weight: bolder;
-  }
-}
-.pu-no-data {
- text-align: center;
- color: #999;
- padding-top: rem(100); 
-}
-
-// ===================  mint-ui modify start ==================== //
-.page-infinite-loading {
-  text-align: center;
-  height: 50px;
-  line-height: 50px;
-  span {
-    display: inline-block;
-    vertical-align: middle;
-  }
-}
-// ===================  mint-ui modify end  ==================== //

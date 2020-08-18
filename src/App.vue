@@ -13,7 +13,6 @@
 
 <script>
 import PubLoading from "./components/Loading"
-import { userIsloginApiF, loginApiF } from '@/service/requestFun'
 import puGetSearch from '@/utils/puGetSearch'
 import { setToken } from '@/common/js/ut'
 export default {
@@ -22,15 +21,8 @@ export default {
     PubLoading
   },
   methods: {
-    userIsloginApiFA(fun) {
-      userIsloginApiF({}, fun).then((result) => {
-        let { subscribe } = result
-        this.$store.dispatch('showScan', subscribe)
-      }).catch(() => {
-      });
-    }
   },
-  mounted() {
+  mounted () {
   }
 }
 </script>
@@ -43,5 +35,8 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+.el-icon-download {
+  font-size: 16px
 }
 </style>

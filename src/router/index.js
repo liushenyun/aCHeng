@@ -31,7 +31,8 @@ const VueRouter = new Router({
                 path: 'globalSearch',
                 component: GlobalSearch
             }
-        ]
+        ],
+        redirect: '/metagenome'
     }
     // DetailA
   ]

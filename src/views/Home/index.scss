@@ -1,14 +1,28 @@
-@import '../../common/css/rem';
 @import '../../common/css/const';
 .JY-home {
   height: 100%;
+  .grid-content {
+    border-right: 1px solid #d1d1d1;
+    position: relative;
+  }
+  .grid-content.button-active::after {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    content: '';
+    height: 3px;
+    width: 100%;
+    background: #ef8523;
+  }
+  .home-header {
+    border-bottom: 1px solid #d1d1d1;
+    margin-bottom: 10px;
+  }
 }
 .el-container {
   height: 100%;
 }
 .el-header, .el-footer {
-  // background-color: #B3C0D1;
-  color: #333;
   text-align: center;
   line-height: 60px;
 }
@@ -17,28 +31,26 @@
 }
 
 .el-aside {
-  background-color: #D3DCE6;
   color: #333;
   text-align: center;
   line-height: 200px;
 }
 
 .el-main {
-  background-color: #E9EEF3;
   color: #333;
   text-align: center;
-  line-height: 160px;
+  // line-height: 160px;
 }
 
 body > .el-container {
   margin-bottom: 40px;
 }
 
-.el-container:nth-child(5) .el-aside,
-.el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
+// .el-container:nth-child(5) .el-aside,
+// .el-container:nth-child(6) .el-aside {
+//   line-height: 260px;
+// }
 
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
-}
+// .el-container:nth-child(7) .el-aside {
+//   line-height: 320px;
+// }

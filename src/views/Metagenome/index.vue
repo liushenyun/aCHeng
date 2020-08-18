@@ -1,65 +1,72 @@
 <template>
   <div class="Metagenome-outer">
     <el-container>
-      <el-aside width="200px">
+      <el-aside width="250px">
         <h4>projects</h4>
         <div class="mm-trees-wrap">
           <el-tree
-            :data="data"
+            :data="projectsData"
+            @check-change="handleNodeClick"
             show-checkbox
             node-key="id"
-            :default-expanded-keys="[2, 3]"
-            :default-checked-keys="[5]"
+            ref="tree"
+            :default-checked-keys="projectsDataChecked"
             :props="defaultProps">
           </el-tree>
         </div>
       </el-aside>
       <el-container>
-        <el-header>
-          <div class="mmc-header">
-            <p><text>BGI_T2D</text><text>文献链接</text><text>EMBL数据库连接</text></p>
-            <p><text>Gut microbiome is associated with thyroid nodule and functions 项目简介</text></p>
-          </div>
+        <el-header style="height: auto">
+          <el-card shadow="always">
+            <p class="mmc-link"><span>{{tabsActiveItem.label}}</span><el-link :href="tabsActiveItem.link" type="primary">文献链接</el-link><el-link type="primary" :href="tabsActiveItem.link">EMBL数据库连接</el-link></p>
+            <p><span>{{tabsActiveItem.description}}</span></p>
+          </el-card>
         </el-header>
         <el-main>
-          <el-tabs v-model="editableTabsValue" type="card" editable @edit="handleTabsEdit">
+          <el-tabs v-model="editableTabsValue" type="card" @tab-remove="removeTab">
             <el-tab-pane
-              :key="item.name"
               v-for="(item, index) in editableTabs"
+              :key="item.name"
               :label="item.title"
               :name="item.name"
             >
               <div class="mm-con-inner">
-                <h6>Metadata</h6>
+                <h6 style="margin-bottom: 6px">Samples</h6>
+                 <el-checkbox-group v-model="samplesChecklist">
+                    <el-checkbox v-for="(item, index) in tabsActiveItem.samples" :key="index" :label="item.name"></el-checkbox>
+                  </el-checkbox-group>
+                <h6 style="margin-bottom: 6px">Metadata</h6>
                 <div>
-                  <el-checkbox-group v-model="checkList">
-                    <el-checkbox label="复选框 A"></el-checkbox>
-                    <el-checkbox label="复选框 B"></el-checkbox>
-                    <el-checkbox label="复选框 C"></el-checkbox>
-                    <el-checkbox label="禁用" disabled></el-checkbox>
-                    <el-checkbox label="选中且禁用" disabled></el-checkbox>
+                  <el-checkbox-group v-model="MetaChecklist">
+                    <el-checkbox v-for="(item, index) in prjectMeta" :key="index" :label="item"></el-checkbox>
                   </el-checkbox-group>
                 </div>
-                <h6>表格信息</h6>
-                <div class="mm-table">
+                <h6 style="margin: 12px 0 6px 0">表格信息</h6>
+                <div class="mm-table" style="margin-bottom: 10px">
                   <el-table
-                    :data="tableData"
+                    :data="activeSamples"
                     height="250"
                     border
                     style="width: 100%">
                     <el-table-column
-                      prop="date"
-                      label="日期"
-                      width="180">
+                      prop="SampleID"
+                      label="Sample"
+                      width="">
                     </el-table-column>
                     <el-table-column
-                      prop="name"
-                      label="姓名"
-                      width="180">
+                      prop="Tags"
+                      label="Tags"
+                      width="">
                     </el-table-column>
                     <el-table-column
-                      prop="address"
-                      label="地址">
+                      prop="Project"
+                      label="Project">
+                    </el-table-column>
+                    <el-table-column
+                      v-for="(item, index) in projectActiveMeta"
+                      :key="index"
+                      :prop="item"
+                      :label="item">
                     </el-table-column>
                   </el-table>
                 </div>
@@ -76,6 +83,8 @@
 <script>
 // @ is an alias to /src
 import { beforeRouteLeave } from '@/common/js/mixin.js'
+import { projectsApiF, projectSamplesApiF,
+  projectsOneSamplesApiF } from '@/service/requestFun.js'
 export default {
   name: 'home',
   mixins: [beforeRouteLeave],
@@ -111,38 +120,23 @@ export default {
         address: '上海市普陀区金沙江路 1518 弄'
       }],
       checkList: ['选中且禁用','复选框 A'],
+      samplesChecklist: [],
+      MetaChecklist: [],
       editableTabsValue: '2',
-      editableTabs: [{
-        title: 'Tab 1',
-        name: '1',
-        content: 'Tab 1 content'
-      }, {
-        title: 'Tab 2',
-        name: '2',
-        content: 'Tab 2 content'
-      }],
+      tabsActiveItem: {},
+      editableTabs: [],
       tabIndex: 2,
-      data: [{
-          id: 1,
-          label: 'BGI_T2D(100)',
-          children: [{
-            id: 3,
-            label: 'T2D(20)'
-          }, {
-            id: 4,
-            label: 'Control(20)'
-          }]
-        }, {
-          id: 2,
-          label: 'HK_CRC(100)',
-          children: [{
-            id: 5,
-            label: 'CRC(20)'
-          }, {
-            id: 6,
-            label: 'Control(80)'
-          }]
-        }],
+      projectActiveMeta: [],
+      prjectMeta: [],
+      activeSamples: [],
+      projectSamplesList: [],
+      projectsDataChecked: [2],
+      projectsData: [
+        // {
+        //   id: 1,
+        //   label: 'BGI_T2D(100)'
+        // }
+      ],
         defaultProps: {
           children: 'children',
           label: 'label'
@@ -152,14 +146,51 @@ export default {
   components: {
   },
   methods: {
-    addTab (targetName) {
-        let newTabName = ++this.tabIndex + '';
+    handleCheckedCitiesChange (value) {
+      let checkedCount = value.length;
+      console.log(159, value)
+      // this.checkAll = checkedCount === this.cities.length;
+      // this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
+    },
+    handleNodeClick (data, checked) {
+      console.log(this.$refs.tree.getCheckedNodes());
+      console.log(this.$refs.tree.getCurrentKey());
+      console.log(165, data, checked);
+      if (checked) {
+        this.addTab(data.label, data.id)
+      } else {
+        this.removeTab(data.label)
+      }
+    },
+    addTab (targetName, id) {
+      console.log(1606, this.projectsDataChecked)
+      if (this.editableTabs.some(v => v.name == targetName)) {
+        this.editableTabsValue = targetName;
+        return
+      }
         this.editableTabs.push({
-          title: 'New Tab',
-          name: newTabName,
+          title: targetName,
+          name: targetName,
           content: 'New Tab content'
         });
-        this.editableTabsValue = newTabName;
+        this.editableTabsValue = targetName;
+        this.projectSamplesApiFA(id);
+      },
+      removeTab (targetName) {
+        let tabs = this.editableTabs;
+        let activeName = this.editableTabsValue;
+        if (activeName === targetName) {
+          tabs.forEach((tab, index) => {
+            if (tab.name === targetName) {
+              let nextTab = tabs[index + 1] || tabs[index - 1];
+              if (nextTab) {
+                activeName = nextTab.name;
+              }
+            }
+          });
+        }
+        this.editableTabsValue = activeName;
+        this.editableTabs = tabs.filter(tab => tab.name !== targetName);
       },
       handleTabsEdit (targetName, action) {
         if (action === 'add') {
@@ -187,11 +218,72 @@ export default {
           this.editableTabsValue = activeName;
           this.editableTabs = tabs.filter(tab => tab.name !== targetName);
         }
+      },
+      projectSamplesApiFA (id) {
+        projectSamplesApiF(id).then((result) => {
+          let { meta = [], samples = [] } = result
+          this.prjectMeta = meta
+          this.projectSamples = samples
+          console.log(213, result)
+        }).catch((err) => {
+        });
       }
   },
   watch: {
+    editableTabsValue (nVal, oVal) {
+      let _actvieVal = ''
+      if (nVal) {
+        _actvieVal = this.projectsData.filter(v => v.label == nVal)
+      }
+      this.tabsActiveItem = _actvieVal[0]
+      console.log(224, this.projectsData, nVal, oVal, _actvieVal)
+    },
+    samplesChecklist (nVal, oVal) {
+      console.log(251, this.projectSamples, nVal, oVal)
+      var _list = []
+       this.projectSamples.forEach(v => {
+        console.log(241, v)
+        nVal.forEach(k => {
+          console.log(243, v[k])
+          if (v[k]) {
+            _list.push(v)
+          }
+        })
+        this.activeSamples = _list
+      })
+    },
+    MetaChecklist (nVal, oVal) {
+      this.projectActiveMeta = nVal;
+    }
   },
   mounted () {
+    projectsApiF().then((result) => {
+      let _data = result;
+      let _list = []
+      for (const key in _data) {
+        if (_data.hasOwnProperty(key)) {
+          const element = _data[key];
+          _list.push({
+            id: element.id,
+            label: element.name,
+            description: element.description,
+            link: element.link,
+            samples: element.samples
+          })
+          console.log(229, element)
+        }
+      }
+      this.projectsData = _list
+      console.log(213, result)
+    }).catch((err) => {
+      
+    });
+// projectSamplesApiF,
+//   projectsOneSamplesApiF
+    // projectsOneSamplesApiF(1).then((result) => {
+    //   console.log(213, result)
+    // }).catch((err) => {
+    // });
   }
 }
 </script>
