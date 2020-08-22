@@ -19,7 +19,7 @@
         <el-header style="height: auto">
           <el-card shadow="always">
             <p class="mmc-link"><span>{{tabsActiveItem.label}}</span><el-link :href="tabsActiveItem.link" type="primary">文献链接</el-link><el-link type="primary" :href="tabsActiveItem.link">EMBL数据库连接</el-link></p>
-            <p><span>{{tabsActiveItem.description}}</span></p>
+            <p class="metahome-tip"><span>{{tabsActiveItem.description}}</span></p>
           </el-card>
         </el-header>
         <el-main>
@@ -31,17 +31,17 @@
               :name="item.name"
             >
               <div class="mm-con-inner">
-                <h6 style="margin-bottom: 6px">Samples</h6>
+                <h6 class="mm-con-title" style="margin-top: 0px">Samples</h6>
                  <el-checkbox-group v-model="samplesChecklist">
                     <el-checkbox v-for="(item, index) in tabsActiveItem.samples" :key="index" :label="item.name"></el-checkbox>
                   </el-checkbox-group>
-                <h6 style="margin-bottom: 6px">Metadata</h6>
+                <h6 class="mm-con-title">Metadata</h6>
                 <div>
                   <el-checkbox-group v-model="MetaChecklist">
                     <el-checkbox v-for="(item, index) in prjectMeta" :key="index" :label="item"></el-checkbox>
                   </el-checkbox-group>
                 </div>
-                <h6 style="margin: 12px 0 6px 0">表格信息</h6>
+                <h6 class="mm-con-title">表格信息</h6>
                 <div class="mm-table" style="margin-bottom: 10px">
                   <el-table
                     :data="activeSamples"
@@ -68,9 +68,19 @@
                       :prop="item"
                       :label="item">
                     </el-table-column>
+                     <el-table-column label="操作">
+                      <template slot="header" slot-scope="scope">
+                        <el-button type="primary" @click="addAllA">添加全部</el-button>
+                      </template>
+                      <template slot-scope="scope">
+                        <el-button
+                          size="mini"
+                          @click="addCat(scope.$index, scope.row)">添加</el-button>
+                      </template>
+                    </el-table-column>
                   </el-table>
                 </div>
-                <el-button type="primary" icon="el-icon-download">下载</el-button>
+                <!-- <el-button type="primary" icon="el-icon-download">下载</el-button> -->
               </div>
             </el-tab-pane>
           </el-tabs>
@@ -130,7 +140,8 @@ export default {
       prjectMeta: [],
       activeSamples: [],
       projectSamplesList: [],
-      projectsDataChecked: [2],
+      // projectsDataChecked: [2],
+      projectsDataChecked: [],
       projectsData: [
         // {
         //   id: 1,
@@ -146,9 +157,13 @@ export default {
   components: {
   },
   methods: {
+    addCat(p1, p2) {
+      console.log(p1, p2)
+    },
+    addAllA() {
+    },
     handleCheckedCitiesChange (value) {
       let checkedCount = value.length;
-      console.log(159, value)
       // this.checkAll = checkedCount === this.cities.length;
       // this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
     },
@@ -220,13 +235,13 @@ export default {
         }
       },
       projectSamplesApiFA (id) {
+        this.activeSamples = []
         projectSamplesApiF(id).then((result) => {
           let { meta = [], samples = [] } = result
           this.prjectMeta = meta
           this.projectSamples = samples
           console.log(213, result)
-        }).catch((err) => {
-        });
+        }).catch(() => {});
       }
   },
   watch: {
@@ -242,7 +257,7 @@ export default {
       console.log(251, this.projectSamples, nVal, oVal)
       var _list = []
        this.projectSamples.forEach(v => {
-        console.log(241, v)
+        // console.log(241, v)
         nVal.forEach(k => {
           console.log(243, v[k])
           if (v[k]) {
@@ -270,14 +285,10 @@ export default {
             link: element.link,
             samples: element.samples
           })
-          console.log(229, element)
         }
       }
       this.projectsData = _list
-      console.log(213, result)
-    }).catch((err) => {
-      
-    });
+    }).catch(() => {});
 // projectSamplesApiF,
 //   projectsOneSamplesApiF
     // projectsOneSamplesApiF(1).then((result) => {

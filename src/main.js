@@ -25,6 +25,7 @@ import { Button,
   Card,
   Input,
   TableColumn,
+  Message,
   Footer } from 'element-ui';
 Vue.use(Card);
 Vue.use(Input);
@@ -48,6 +49,7 @@ Vue.use(TabPane);
 Vue.use(Footer);
 Object.assign(Vue.prototype, {
   // $toast: Toast,
+  $message: Message,
   $eventQueue: new EventQueue()
 });
 Vue.config.productionTip = false

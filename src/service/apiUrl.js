@@ -8,8 +8,24 @@ const projectSamplesApi = (pid) => `${Domain}/rest/v1/project/samples/${pid}`
 // genome-get_one_project
 const projectsOneSamplesApi = (pid) => `${Domain}/rest/v1/project/${pid}`
 
+// genome-get_one_project
+const metadatasApi = (pid) => `${Domain}/rest/v1/metadatas`
+
+// metadata-metadata_search
+const metadatasSearchApi = () => `${Domain}/rest/v1/metadata/_search`
+
+// metadata-get_one_metadata
+const oneMetadataApi = (metaId) => `${Domain}/rest/v1/metadata/${metaId}`
+
+// rest/v1/project/_search
+const oneProjectSearchApi = () => `${Domain}/rest/v1/project/_search`
+// rest/v1/project/_search
 export {
   projectsApi,
   projectSamplesApi,
-  projectsOneSamplesApi
+  projectsOneSamplesApi,
+  metadatasApi,
+  metadatasSearchApi,
+  oneMetadataApi,
+  oneProjectSearchApi
 };

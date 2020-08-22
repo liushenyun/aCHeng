@@ -6,12 +6,12 @@
           <el-col :span="4"><div class="grid-content bg-purple">
             <i class="el-icon-eleme"></i>
           </div></el-col>
-          <el-col :span="3"><div class="grid-content">公司名称</div></el-col>
-          <el-col :span="3"><div class="grid-content" :class="$route.path == '/metagenome' ? 'button-active':''"><router-link to="/metagenome">metagenome</router-link></div></el-col>
-          <el-col :span="3"><div class="grid-content" :class="$route.path == '/project' ? 'button-active':''"><router-link to="/project">project</router-link></div></el-col>
-          <el-col :span="3"><div class="grid-content" :class="$route.path == '/metaData' ? 'button-active':''"><router-link to="/metaData">MetaData</router-link></div></el-col>
-          <el-col :span="3"><div class="grid-content" :class="$route.path == '/globalSearch' ? 'button-active':''"><router-link to="/globalSearch">Global Search</router-link></div></el-col>
-          <el-col :span="3"><div class="grid-content" :class="$route.path == '/contact' ? 'button-active':''"><router-link to="/contact">Contact Us</router-link></div></el-col>
+          <el-col :span="8"><div class="grid-content">CHIP DATABASE</div></el-col>
+          <el-col :span="2"><div class="grid-content" :class="$route.path == '/metagenome' ? 'button-active':''"><router-link to="/metagenome">metagenome</router-link></div></el-col>
+          <el-col :span="2"><div class="grid-content" :class="$route.path == '/project' ? 'button-active':''"><router-link to="/project">project</router-link></div></el-col>
+          <el-col :span="2"><div class="grid-content" :class="$route.path == '/metaData' ? 'button-active':''"><router-link to="/metaData">MetaData</router-link></div></el-col>
+          <el-col :span="2"><div class="grid-content" :class="$route.path == '/globalSearch' ? 'button-active':''"><router-link to="/globalSearch">Search</router-link></div></el-col>
+          <el-col :span="2"><div class="grid-content" :class="$route.path == '/contact' ? 'button-active':''"><router-link to="/contact">Contact Us</router-link></div></el-col>
           <el-col :span="2"><div class="grid-content">Cart</div></el-col>
         </el-row>
       </el-header>
@@ -21,7 +21,7 @@
           <el-main>Main</el-main> -->
         </router-view>
       </el-container>
-      <el-footer>Footer</el-footer>
+      <!-- <el-footer>Footer</el-footer> -->
     </el-container>
   </div>
 </template>

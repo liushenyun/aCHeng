@@ -4,7 +4,11 @@ import packagePromise from './packagePromise'
 import {
   projectsApi,
   projectSamplesApi,
-  projectsOneSamplesApi
+  projectsOneSamplesApi,
+  metadatasApi,
+  metadatasSearchApi,
+  oneMetadataApi,
+  oneProjectSearchApi
 } from './apiUrl';
 // import Validate from './Validate';
 // import { aesEncrypt } from "../utils/dtAes";
@@ -62,8 +66,65 @@ const projectsOneSamplesApiF = (pid, fun) => packagePromise((resolve, reject) =>
     })
     .catch(err => reject(err))
 })
+
+// genome-get_projects
+const metadatasApiF = (fun) => packagePromise((resolve, reject) => {
+  fetch({
+    url: metadatasApi(),
+    method: 'GET',
+    data: {}
+  }, fun)
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+
+// genome-get_projects
+const metadatasSearchApiF = (data, fun) => packagePromise((resolve, reject) => {
+  fetch({
+    url: metadatasSearchApi(),
+    method: 'POST',
+    data
+  }, fun)
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+
+// genome-get_projects
+const oneMetadataApiF = (id) => packagePromise((resolve, reject) => {
+  fetch({
+    url: oneMetadataApi(id),
+    method: 'GET',
+    data: {}
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+
+const oneProjectSearchApiF = (data) => packagePromise((resolve, reject) => {
+  fetch({
+    url: oneProjectSearchApi(),
+    method: 'POST',
+    data
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+
+// metadataSsearchApi
 export {
   projectsApiF,
   projectSamplesApiF,
-  projectsOneSamplesApiF
+  projectsOneSamplesApiF,
+  metadatasApiF,
+  metadatasSearchApiF,
+  oneMetadataApiF,
+  oneProjectSearchApiF
 }
