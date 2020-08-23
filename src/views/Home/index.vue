@@ -3,9 +3,7 @@
     <el-container>
       <el-header class="home-header">
         <el-row>
-          <el-col :span="4"><div class="grid-content bg-purple">
-            <i class="el-icon-eleme"></i>
-          </div></el-col>
+          <el-col :span="4"><div class="grid-content bg-purple"><i class="el-icon-eleme"></i></div></el-col>
           <el-col :span="8"><div class="grid-content">CHIP DATABASE</div></el-col>
           <el-col :span="2"><div class="grid-content" :class="$route.path == '/metagenome' ? 'button-active':''"><router-link to="/metagenome">metagenome</router-link></div></el-col>
           <el-col :span="2"><div class="grid-content" :class="$route.path == '/project' ? 'button-active':''"><router-link to="/project">project</router-link></div></el-col>
@@ -39,16 +37,10 @@ export default {
   components: {
   },
   methods: {
-      toDetailA(type, item) {
-        this.$router.push({
-          path: `/detailA/${type}/${item.id}`
-        })
-      }
   },
   watch: {
   },
   mounted () {
-    console.log(this.$route)
   }
 }
 </script>

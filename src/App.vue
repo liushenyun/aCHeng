@@ -39,4 +39,8 @@ export default {
 .el-icon-download {
   font-size: 16px
 }
+.pr-table .el-table__body .one-column {
+  color: #409eff;
+  cursor: pointer;
+}
 </style>

@@ -25,8 +25,18 @@ import { Button,
   Card,
   Input,
   TableColumn,
+  Menu,
+  Submenu,
+  MenuItem,
+  MenuItemGroup,
   Message,
+  Drawer,
   Footer } from 'element-ui';
+Vue.use(Drawer);
+Vue.use(Menu);
+Vue.use(Submenu);
+Vue.use(MenuItem);
+Vue.use(MenuItemGroup);
 Vue.use(Card);
 Vue.use(Input);
 Vue.use(Icon);

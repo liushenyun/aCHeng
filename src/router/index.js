@@ -5,6 +5,7 @@ const Metagenome = () => import('../views/Metagenome/index')
 const Projects = () => import('../views/Projects/index')
 const MetaData = () => import('../views/MetaData/index')
 const GlobalSearch = () => import('../views/GlobalSearch/index')
+const Concat = () => import('../views/Concat/index')
 
 Vue.use(Router)
 const VueRouter = new Router({
@@ -30,6 +31,10 @@ const VueRouter = new Router({
             {
                 path: 'globalSearch',
                 component: GlobalSearch
+            },
+            {
+                path: 'contact',
+                component: Concat
             }
         ],
         redirect: '/metagenome'

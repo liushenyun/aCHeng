@@ -10,7 +10,11 @@
     </div>
     <div class="pr-table">
       <el-table :data="tableData4" size='mini' :span-method="objectSpanMethod1" border="">
-        <el-table-column prop="id" label="Projects" width="180"></el-table-column>
+        <el-table-column class-name='one-column' prop="id" label="Projects" width="180">
+          <template slot-scope="scope">
+            <span @click="cellClick(scope.$index, tableData4[scope.$index])" style="margin-left: 10px">{{ scope.row.id }}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="tags" label="Tags"></el-table-column>
         <el-table-column prop="sampleNumber" label="Sample Number"></el-table-column>
         <el-table-column prop="publishedYear" label="published Year"></el-table-column>
@@ -28,6 +32,16 @@
         </el-table-column>
       </el-table>
     </div>
+
+    <el-drawer
+      title="我是标题"
+      :visible.sync="drawer"
+      :with-header="false">
+      <div>
+        <h3 style="padding-bottom: 6px">project详情</h3>
+        <span>{{projectDetail}}</span>
+      </div>
+    </el-drawer>
   </div>
 </template>
 
@@ -40,6 +54,8 @@ export default {
   mixins: [beforeRouteLeave],
   data() {
     return {
+      drawer: false,
+      projectDetail: '',
       projectInput: "",
       spanArr: [],
       tableData4: []
@@ -47,6 +63,10 @@ export default {
   },
   components: {},
   methods: {
+    cellClick(p1, p2) {
+      this.drawer = true
+      this.projectDetail = p2.projects
+    },
     downloadA (index, row) {
       console.log(index, row);
     },

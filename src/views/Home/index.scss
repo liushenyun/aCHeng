@@ -1,6 +1,9 @@
 @import '../../common/css/const';
 .JY-home {
   height: 100%;
+  .home-header {
+    padding: 0;
+  }
   .grid-content {
     border-right: 1px solid #d1d1d1;
     position: relative;
