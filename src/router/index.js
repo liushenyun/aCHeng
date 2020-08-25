@@ -9,7 +9,7 @@ const Concat = () => import('../views/Concat/index')
 
 Vue.use(Router)
 const VueRouter = new Router({
-  mode: 'history',
+//   mode: 'history',
   routes: [
     {
         path: '/',

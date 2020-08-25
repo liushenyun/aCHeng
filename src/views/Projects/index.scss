@@ -5,5 +5,15 @@
   .el-input-group{
     width: 300px;
   }
-
+  .drawer-con {
+    padding: 10px 20px;
+  }
+  .tips {
+    .mmc-link {
+      margin-bottom: 12px;
+      span, a {
+        margin-right: 30px;
+      }
+    }
+  }
 }

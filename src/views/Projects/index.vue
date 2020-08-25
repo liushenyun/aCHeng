@@ -19,15 +19,15 @@
         <el-table-column prop="sampleNumber" label="Sample Number"></el-table-column>
         <el-table-column prop="publishedYear" label="published Year"></el-table-column>
         <el-table-column prop="url" label="Download Meta">
-          <template slot-scope="scope">
-            <el-button
+          <template slot-scope="scope" v-if="tableData4[scope.$index].url">
+            <el-link :href='tableData4[scope.$index].url' type="primary">download</el-link>
+            <!-- <el-button
               icon="el-icon-download"
               @click.native.prevent="downloadA(scope.$index, tableData4[scope.$index])"
               type="text"
               size="small"
             >
-              <p></p>
-            </el-button>
+            </el-button> -->
           </template>
         </el-table-column>
       </el-table>
@@ -35,11 +35,14 @@
 
     <el-drawer
       title="我是标题"
+      size='50%'
       :visible.sync="drawer"
       :with-header="false">
-      <div>
-        <h3 style="padding-bottom: 6px">project详情</h3>
-        <span>{{projectDetail}}</span>
+      <div class="drawer-con">
+        <div class="tips">
+          <p class="mmc-link"><span>T2D</span><el-link href="" type="primary">文献链接</el-link><el-link type="primary" href="">EMBL数据库连接</el-link></p>
+          <p class="metahome-tip"><span>这是描述</span></p>
+        </div>
       </div>
     </el-drawer>
   </div>
