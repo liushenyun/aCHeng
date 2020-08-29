@@ -1,13 +1,13 @@
 <template>
   <div class="MetaData-outer">
     <el-container>
+      <!-- <el-header>Header</el-header> -->
       <el-aside width="300px">
         <div class="search-outer">
           <el-input size="small" placeholder="请输入内容" v-model="metaInput" class="Meta-input-1">
             <el-button slot="append" icon="el-icon-search" @click="searchA"></el-button>
           </el-input>
-          <!-- <el-button type="primary" icon="el-icon-download" class="Meta-input-2">下载全部</el-button> -->
-          <el-button style="padding: 7px 10px" type="primary" size="mini" icon class="Meta-input-2">
+          <el-button style="padding: 7px 10px" type="primary" target="_blank" size="mini" icon class="Meta-input-2">
             <el-link
               href="http://hethelp.com:8001/MetadataList.xlsx"
               style="color: #FFF"
@@ -25,10 +25,19 @@
         <el-main>
           <el-card shadow="always">
             <p class="tip-one">
-              <span>{{metaDetail.name}}</span>
-              <span>{{metaDetail.levelA}}</span>
+              <span>Name： </span><span>{{metaDetail.name || '--'}}</span>
+              
             </p>
-            <div class="tip-two">{{metaDetail.description}}</div>
+            <p class="tip-one">
+              <span>Unit： </span><span>{{metaDetail.unit || '--'}}</span>
+            </p>
+            <p class="tip-one">
+              <span>Description：</span>
+              <span>{{metaDetail.description || '--'}}</span>
+            </p>
+            <!-- <div class="tip-one">
+              
+            </div> -->
           </el-card>
         </el-main>
       </el-container>

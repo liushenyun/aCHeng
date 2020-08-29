@@ -8,7 +8,12 @@ import {
   metadatasApi,
   metadatasSearchApi,
   oneMetadataApi,
-  oneProjectSearchApi
+  oneProjectSearchApi,
+  cartDownloadApi,
+  reportBugApi,
+  reportMetagenomeApi,
+  searchRulerApi,
+  globalSearchApi
 } from './apiUrl';
 // import Validate from './Validate';
 // import { aesEncrypt } from "../utils/dtAes";
@@ -118,6 +123,68 @@ const oneProjectSearchApiF = (data) => packagePromise((resolve, reject) => {
     .catch(err => reject(err))
 })
 
+// cartDownloadApi
+const cartDownloadApiF = (data) => packagePromise((resolve, reject) => {
+  fetch({
+    url: cartDownloadApi(),
+    method: 'POST',
+    data
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+
+const reportBugApiF = (data) => packagePromise((resolve, reject) => {
+  fetch({
+    url: reportBugApi(),
+    method: 'POST',
+    data
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+
+const reportMetagenomeApiF = (data) => packagePromise((resolve, reject) => {
+  fetch({
+    url: reportMetagenomeApi(),
+    method: 'POST',
+    data
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+const searchRulerApiF = (id) => packagePromise((resolve, reject) => {
+  fetch({
+    url: searchRulerApi(id),
+    method: 'GET',
+    data: {}
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+const globalSearchApiF = (data) => packagePromise((resolve, reject) => {
+  fetch({
+    url: globalSearchApi(),
+    method: 'POST',
+    data
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+
+// searchRulerApi
+// reportBugApi,
+//   reportMetagenomeApi
 // metadataSsearchApi
 export {
   projectsApiF,
@@ -126,5 +193,10 @@ export {
   metadatasApiF,
   metadatasSearchApiF,
   oneMetadataApiF,
-  oneProjectSearchApiF
+  oneProjectSearchApiF,
+  cartDownloadApiF,
+  reportBugApiF,
+  reportMetagenomeApiF,
+  searchRulerApiF,
+  globalSearchApiF
 }

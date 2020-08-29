@@ -5,7 +5,6 @@ import Store from '../store'
 import qs from 'qs';
 import formatParams from '../utils/formatParams';
 // import { addCommonParams } from './paramsFormat'
-import { getToken } from '../common/js/ut'
 axios.defaults.baseURL = baseUrl;
 axios.defaults.timeout = 50000;
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
@@ -50,7 +49,6 @@ const fetchs = (options, fun) => {
   return new Promise((resolve, reject) => {
     axios({
       headers: {
-        UserAuthentication: getToken() || '',
         ..._header
       },
       ..._config

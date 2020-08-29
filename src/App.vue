@@ -35,6 +35,15 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  .el-table thead th,
+  .el-table thead tr {
+    background-color: #f3f3f3;
+  }
+  .el-table thead th>.cell {
+    color: #909399;
+    font-weight: 700;
+    font-weight: bolder;
+  }
 }
 .el-icon-download {
   font-size: 16px
@@ -42,5 +51,27 @@ export default {
 .pr-table .el-table__body .one-column {
   color: #409eff;
   cursor: pointer;
+}
+.JY-home {
+  .el-drawer__body {
+    height: 100%;
+  }
+  .el-drawer__title {
+    margin-bottom: 10px
+  }
+  .el-drawer__header {
+    margin-bottom: 0;
+  }
+  .el-drawer__header>:first-child {
+    font-size: 16px;
+    font-weight: bolder;
+  }
+}
+.Metagenome-outer {
+  .aside-card {
+    .el-card__body {
+      padding: 0;
+    }
+  }
 }
 </style>

@@ -49,6 +49,17 @@ body > .el-container {
   margin-bottom: 40px;
 }
 
+.cart-outer {
+  position: fixed;
+  right: 30px;
+  bottom: 0;
+  transform: translateY(-50%);
+  z-index: 2000;
+  .el-button.is-circle {
+    padding: 16px;
+  }
+}
+
 // .el-container:nth-child(5) .el-aside,
 // .el-container:nth-child(6) .el-aside {
 //   line-height: 260px;

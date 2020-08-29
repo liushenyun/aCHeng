@@ -30,8 +30,14 @@ import { Button,
   MenuItem,
   MenuItemGroup,
   Message,
+  MessageBox,
   Drawer,
+  Badge,
+  Select,
+  Option,
   Footer } from 'element-ui';
+Vue.use(Select);
+Vue.use(Option);
 Vue.use(Drawer);
 Vue.use(Menu);
 Vue.use(Submenu);
@@ -56,9 +62,11 @@ Vue.use(Checkbox);
 Vue.use(CheckboxButton);
 Vue.use(CheckboxGroup);
 Vue.use(TabPane);
+Vue.use(Badge);
 Vue.use(Footer);
 Object.assign(Vue.prototype, {
   // $toast: Toast,
+  $confirm: MessageBox.confirm,
   $message: Message,
   $eventQueue: new EventQueue()
 });

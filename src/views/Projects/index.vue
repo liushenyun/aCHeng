@@ -4,12 +4,9 @@
       <el-input style="margin-right: 20px" placeholder="请输入内容" v-model="projectInput" size='small' class="input-with-select">
         <el-button slot="append" icon="el-icon-search" @click="searchA"></el-button>
       </el-input>
-      <el-button style="padding: 7px 10px" type="primary" size='mini' icon="" class="Meta-input-2">
-        <el-link href="http://hethelp.com:8001/MetadataList.xlsx" style="color: #FFF" target="_blank">下载全部</el-link>
-      </el-button>
     </div>
     <div class="pr-table">
-      <el-table :data="tableData4" size='mini' :span-method="objectSpanMethod1" border="">
+      <el-table :data="tableData4" :span-method="objectSpanMethod1" border="">
         <el-table-column class-name='one-column' prop="id" label="Projects" width="180">
           <template slot-scope="scope">
             <span @click="cellClick(scope.$index, tableData4[scope.$index])" style="margin-left: 10px">{{ scope.row.id }}</span>
@@ -20,7 +17,7 @@
         <el-table-column prop="publishedYear" label="published Year"></el-table-column>
         <el-table-column prop="url" label="Download Meta">
           <template slot-scope="scope" v-if="tableData4[scope.$index].url">
-            <el-link :href='tableData4[scope.$index].url' type="primary">download</el-link>
+            <el-link :href='tableData4[scope.$index].url' target="_blank" type="primary">download</el-link>
             <!-- <el-button
               icon="el-icon-download"
               @click.native.prevent="downloadA(scope.$index, tableData4[scope.$index])"
@@ -40,7 +37,7 @@
       :with-header="false">
       <div class="drawer-con">
         <div class="tips">
-          <p class="mmc-link"><span>T2D</span><el-link href="" type="primary">文献链接</el-link><el-link type="primary" href="">EMBL数据库连接</el-link></p>
+          <p class="mmc-link"><span>T2D</span><el-link href=""  type="primary">文献链接</el-link><el-link type="primary" href="">EMBL数据库连接</el-link></p>
           <p class="metahome-tip"><span>这是描述</span></p>
         </div>
       </div>
@@ -83,6 +80,7 @@ export default {
     },
     dealProjects(result) {
       this.tableData4 = []
+      this.spanArr = []
       let _result = result;
       let _list = [];
       _result.forEach(v => {
