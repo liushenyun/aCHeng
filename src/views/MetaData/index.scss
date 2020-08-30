@@ -10,8 +10,13 @@
   .el-aside {
     padding-left: 20px;
   }
+  .el-main {
+    padding: 0 20px;
+  }
   .search-outer {
     margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between
   }
   .Meta-input-1 {
     width: 170px;

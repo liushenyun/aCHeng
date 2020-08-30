@@ -18,7 +18,12 @@
     background: #ef8523;
   }
   .home-header {
-    border-bottom: 1px solid #d1d1d1;
+    .el-col {
+      border-bottom: 1px solid #d1d1d1;
+    }
+    .col-offset {
+      border-left: 1px solid #d1d1d1;
+    }
     margin-bottom: 10px;
   }
 }

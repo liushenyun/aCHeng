@@ -1,8 +1,7 @@
 <template>
   <div class="MetaData-outer">
     <el-container>
-      <!-- <el-header>Header</el-header> -->
-      <el-aside width="300px">
+      <el-header>
         <div class="search-outer">
           <el-input size="small" placeholder="请输入内容" v-model="metaInput" class="Meta-input-1">
             <el-button slot="append" icon="el-icon-search" @click="searchA"></el-button>
@@ -15,18 +14,19 @@
             >下载全部</el-link>
           </el-button>
         </div>
-        <div class="mm-trees-wrap">
-          <el-menu @select='elMenuSelectA'>
-            <menutree :data="metasData"></menutree>
-          </el-menu>
-        </div>
-      </el-aside>
+      </el-header>
       <el-container>
+        <el-aside width="300px">
+          <div class="mm-trees-wrap">
+            <el-menu @select='elMenuSelectA'>
+              <menutree :data="metasData"></menutree>
+            </el-menu>
+          </div>
+        </el-aside>
         <el-main>
           <el-card shadow="always">
             <p class="tip-one">
               <span>Name： </span><span>{{metaDetail.name || '--'}}</span>
-              
             </p>
             <p class="tip-one">
               <span>Unit： </span><span>{{metaDetail.unit || '--'}}</span>
@@ -36,7 +36,6 @@
               <span>{{metaDetail.description || '--'}}</span>
             </p>
             <!-- <div class="tip-one">
-              
             </div> -->
           </el-card>
         </el-main>

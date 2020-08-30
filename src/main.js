@@ -5,7 +5,6 @@ import store from './store/index'
 import 'element-ui/lib/theme-chalk/index.css';
 
 // import ajaxFun from './service/requestFun'
-import EventQueue from './common/js/eventQueue'
 import { Button,
   Row,
   Col,
@@ -68,7 +67,7 @@ Object.assign(Vue.prototype, {
   // $toast: Toast,
   $confirm: MessageBox.confirm,
   $message: Message,
-  $eventQueue: new EventQueue()
+  $bus: new Vue()
 });
 Vue.config.productionTip = false
 

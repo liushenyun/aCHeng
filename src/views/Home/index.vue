@@ -8,10 +8,10 @@
               <i class="el-icon-eleme"></i>
             </div>
           </el-col> -->
-          <el-col :span="14">
+          <el-col :span="8">
             <div class="grid-content">CHIP DATABASE</div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="2" :offset="6" class="col-offset">
             <div class="grid-content" :class="$route.path == '/metagenome' ? 'button-active':''">
               <router-link to="/metagenome">Metagenome</router-link>
             </div>
@@ -42,7 +42,7 @@
         </el-row>
       </el-header>
       <div class="cart-outer">
-        <el-badge :value="200">
+        <el-badge :value="cartNum">
           <el-button type="success" @click="openDrawer" icon="el-icon-s-goods" circle></el-button>
         </el-badge>
       </div>
@@ -87,7 +87,8 @@ export default {
       drawer: false,
       showCartButton: true,
       gridData: [],
-      checkedGrid: []
+      checkedGrid: [],
+      cartNum: 0
     };
   },
   components: {},
@@ -150,7 +151,12 @@ export default {
     }
   },
   watch: {},
-  mounted() {}
+  mounted() {
+    this.cartNum = Object.keys(getCat()).length
+    this.$bus.$off('computedCount').$on('computedCount', (data) => {
+      this.cartNum = Object.keys(data).length
+    })
+  }
 };
 </script>
 

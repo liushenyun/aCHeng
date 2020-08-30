@@ -1,3 +1,4 @@
+import Vue from 'vue'
 
 const getCat = () => {
     let _data = localStorage.getItem('CHIP-CART')
@@ -10,6 +11,8 @@ const setCat = (data) => {
     _old[data['SampleID']] = data
     console.log(10, _old)
     localStorage.setItem('CHIP-CART', JSON.stringify(_old))
+    console.log(1222)
+    Vue.prototype.$bus.$emit('computedCount', getCat())
 }
 
 const delCat = (list) => {
@@ -18,6 +21,7 @@ const delCat = (list) => {
         delete _old[v['SampleID']]
     });
     localStorage.setItem('CHIP-CART', JSON.stringify(_old))
+    Vue.prototype.$bus.$emit('computedCount', getCat())
 }
 
 export {
