@@ -6,13 +6,16 @@
           <el-input size="small" placeholder="请输入内容" v-model="metaInput" class="Meta-input-1">
             <el-button slot="append" icon="el-icon-search" @click="searchA"></el-button>
           </el-input>
-          <el-button style="padding: 7px 10px" type="primary" target="_blank" size="mini" icon class="Meta-input-2">
-            <el-link
+          <el-link
               href="http://hethelp.com:8001/MetadataList.xlsx"
-              style="color: #FFF"
+              type="primary"
               target="_blank"
-            >下载全部</el-link>
-          </el-button>
+            >
+            <img style="width: 24px" src="../../image/ic_Download.png" alt="">
+            <span>下载全部</span>
+          </el-link>
+          <!-- <el-button style="padding: 7px 10px" type="primary" target="_blank" size="mini" icon class="Meta-input-2">
+          </el-button> -->
         </div>
       </el-header>
       <el-container>
@@ -24,20 +27,27 @@
           </div>
         </el-aside>
         <el-main>
-          <el-card shadow="always">
-            <p class="tip-one">
-              <span>Name： </span><span>{{metaDetail.name || '--'}}</span>
-            </p>
-            <p class="tip-one">
-              <span>Unit： </span><span>{{metaDetail.unit || '--'}}</span>
-            </p>
-            <p class="tip-one">
-              <span>Description：</span>
-              <span>{{metaDetail.description || '--'}}</span>
-            </p>
-            <!-- <div class="tip-one">
-            </div> -->
-          </el-card>
+          <el-row :gutter="12">
+            <el-col :span="8">
+              <el-card style="min-height: 200px" shadow="always">
+                <p class="tip-one">
+                  <img src="../../image/ic_Name.png" alt=""><span>Name： </span><span>{{metaDetail.name || '--'}}</span>
+                </p>
+                <p class="tip-one">
+                  <img src="../../image/ic_Unit.png" alt=""><span>Unit： </span><span>{{metaDetail.unit || '--'}}</span>
+                </p>
+              </el-card>
+            </el-col>
+            <el-col :span="16">
+              <el-card  style="min-height: 200px" shadow="always">
+                <p class="tip-one">
+                  <img src="../../image/ic_Description.png" alt="">
+                  <span>Description：</span>
+                </p>
+                <p class="tip-con">{{metaDetail.description || '--'}}</p>
+              </el-card>
+            </el-col>
+          </el-row>
         </el-main>
       </el-container>
     </el-container>

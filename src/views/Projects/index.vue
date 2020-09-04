@@ -2,7 +2,7 @@
   <div class="PROJECT-outer">
     <div class="search-outer" style="margin-bottom: 10px">
       <el-input style="margin-right: 20px" placeholder="请输入内容" v-model="projectInput" size='small' class="input-with-select">
-        <el-button slot="append" icon="el-icon-search" @click="searchA"></el-button>
+        <el-button type="primary" slot="append" icon="el-icon-search" @click="searchA"></el-button>
       </el-input>
     </div>
     <div class="pr-table">
@@ -17,7 +17,10 @@
         <el-table-column prop="publishedYear" label="published Year"></el-table-column>
         <el-table-column prop="url" label="Download Meta">
           <template slot-scope="scope" v-if="tableData4[scope.$index].url">
-            <el-link :href='tableData4[scope.$index].url' target="_blank" type="primary">download</el-link>
+            <el-link :href='tableData4[scope.$index].url' target="_blank" type="primary">
+              <img style="width: 24px; margin-right: 4px;" src="../../image/ic_Download.png" alt="">
+              <span>download</span>
+            </el-link>
             <!-- <el-button
               icon="el-icon-download"
               @click.native.prevent="downloadA(scope.$index, tableData4[scope.$index])"

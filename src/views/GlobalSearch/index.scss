@@ -11,6 +11,8 @@
  }
  .h3-title {
     font-size: 16px;
+    color: #2F2725;
+    font-weight: bolder;
  }
  .c-meta-outer {
    h3 {
@@ -19,10 +21,11 @@
    }
    .cmeta-title {
      display: inline-block;
-     font-weight: bolder;
+     font-weight: 500;
      margin: 0 20px 8px 0;
      width: 60px;
      text-align: right;
+     font-size: 14px;
    }
    .range-outer,
    .enum-outer {

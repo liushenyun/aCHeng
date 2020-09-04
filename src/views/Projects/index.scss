@@ -2,6 +2,10 @@
 .PROJECT-outer {
   padding: 0 8px;
   width: 100%;
+  .search-outer {
+    display: flex;
+    justify-content: flex-end;
+  }
   .el-input-group{
     width: 300px;
   }

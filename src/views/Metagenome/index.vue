@@ -39,7 +39,7 @@
               :name="item.name"
             >
               <div class="mm-con-inner">
-                <h6 class="mm-con-title" style="margin-top: 0px">Tag</h6>
+                <h6 class="mm-con-title">Tag</h6>
                 <el-checkbox-group v-model="samplesChecklist">
                   <el-checkbox
                     v-for="(item, index) in tabsActiveItem.samples"
@@ -47,15 +47,17 @@
                     :label="item.name"
                   ></el-checkbox>
                 </el-checkbox-group>
+                <el-divider></el-divider>
                 <h6 class="mm-con-title">Metadata</h6>
                 <div>
                   <el-checkbox-group v-model="MetaChecklist">
                     <el-checkbox v-for="(item, index) in prjectMeta" :key="index" :label="item"></el-checkbox>
                   </el-checkbox-group>
                 </div>
+                <el-divider></el-divider>
                 <h6 class="mm-con-title">Sample</h6>
                 <div class="mm-table" style="margin-bottom: 10px">
-                  <el-table :data="activeSamples" height="350" border="" style="width: 100%">
+                  <el-table :data="activeSamples" height="350" border="" style="width: 100%;">
                     <el-table-column prop="SampleID" label="Sample" width=""></el-table-column>
                     <el-table-column prop="Tags" label="Tags" width=""></el-table-column>
                     <el-table-column prop="Project" label="Project"></el-table-column>
@@ -67,7 +69,7 @@
                     ></el-table-column>
                     <el-table-column label="操作">
                       <template slot="header" slot-scope="scope">
-                        <el-button type="success" icon="el-icon-plus" @click.native.prevent="addAllA(scope.$index, activeSamples)">add all</el-button>
+                        <el-button type="primary" icon="el-icon-plus" @click.native.prevent="addAllA(scope.$index, activeSamples)">add all</el-button>
                       </template>
                       <template slot-scope="scope">
                         <el-button size="primary" icon="el-icon-plus" @click.native.prevent="addCat(scope.$index, scope.row)"></el-button>

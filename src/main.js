@@ -34,7 +34,10 @@ import { Button,
   Badge,
   Select,
   Option,
-  Footer } from 'element-ui';
+  Footer,
+  Divider
+} from 'element-ui';
+Vue.use(Divider);
 Vue.use(Select);
 Vue.use(Option);
 Vue.use(Drawer);

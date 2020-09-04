@@ -40,7 +40,7 @@ export default {
     background-color: #f3f3f3;
   }
   .el-table thead th>.cell {
-    color: #909399;
+    color: #677AFB;
     font-weight: 700;
     font-weight: bolder;
   }
@@ -71,6 +71,35 @@ export default {
   .aside-card {
     .el-card__body {
       padding: 0;
+    }
+  }
+  .mm-trees-wrap {
+    .el-tree-node__label {
+      font-size: 16px;
+      color: #2F2725;
+      text-align: center;
+      font-weight: bolder;
+    }
+  }
+}
+.PROJECT-outer {
+  .pr-table {
+    .el-link--inner {
+      display: flex;
+      align-items: center;
+    }
+  }
+  // .search-outer {
+  //   .el-input__inner {
+  //     border: 1px solid #677AFB;
+  //   }
+  // }
+}
+.MetaData-outer {
+  .search-outer {
+    .el-link--inner {
+      display: flex;
+      align-items: center;
     }
   }
 }

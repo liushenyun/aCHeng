@@ -12,7 +12,7 @@
       </el-select>
     </el-row>
     <div class="c-meta-outer">
-      <h3 class="h3-title" v-if="ruleList.length">Please select metadata</h3>
+      <h3 class="h3-title" v-if="ruleList.length">Please select metadata: </h3>
       <el-row style="margin-bottom: 20px;" v-for="(item, index) in ruleList" :key="index">
         <label class="cmeta-title">{{item.name}}:</label>
         <el-checkbox-group class="enum-outer" v-if="item.type == 'enum'" v-model="item.checked">
@@ -25,7 +25,7 @@
           <el-input class="rang-input" type='number' size="mini" placeholder="max" v-model="item.max"></el-input>
         </div>
       </el-row>
-      <el-row style="margin-top: 60px">
+      <el-row style="margin-top: 60px; text-algign: right">
         <el-button type="primary" @click="searchA">search</el-button>
       </el-row>
     </div>

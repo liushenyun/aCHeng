@@ -4,12 +4,13 @@
   width: 100%;
   h4 {
     line-height: 60px;
-    font-size: 22px;
-    font-weight: bolder;
     padding: 0 18px;
     background-color: #fafafa;
-    color: rgba(0,0,0,.65);
     margin-bottom: 16px;
+    opacity: 0.48;
+    font-size: 18px;
+    color: #2F2725;
+    letter-spacing: -0.43px;
   }
   .el-aside {
     padding-left: 20px;
@@ -17,8 +18,15 @@
   }
   .mmc-link{
     line-height: 20px;
-    span,a {
-      font-size: 14px;
+    display: flex;
+    font-size: 16px;
+    span {
+      color: #2F2725;
+      letter-spacing: -0.39px;
+      flex: 1;
+      font-weight: bolder;
+    }
+    a {
       padding: 0 10px;
     }
     span:nth-of-type(1) {
@@ -27,8 +35,9 @@
     margin-bottom: 8px;
   }
   .metahome-tip {
-    font-size: 14px;
-    line-height: 1.2;
+    color: #606266;
+    letter-spacing: -0.39px;
+    line-height: 26px;
   }
   .el-checkbox {
     min-width: 86px;
@@ -50,10 +59,17 @@
   color: #333;
   // line-height: 160px;
 }
-.mm-trees-wrap {
-
-}
+// .mm-trees-wrap {
+//   .el-tree-node__label {
+//     font-size: 16px;
+//     color: #2F2725;
+//     text-align: center;
+//   }
+// }
 .mm-con-title {
   font-size: 18px;
-  margin: 16px 0 6px 0;
+  color: #2F2725;
+  letter-spacing: -0.43px;
+  margin: 30px 0 30px 0;
+  font-weight: bolder;
 }

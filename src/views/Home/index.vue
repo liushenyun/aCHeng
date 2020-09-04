@@ -8,7 +8,7 @@
               <i class="el-icon-eleme"></i>
             </div>
           </el-col> -->
-          <el-col :span="8">
+          <el-col class="company-name" :span="8">
             <div class="grid-content">CHIP DATABASE</div>
           </el-col>
           <el-col :span="2" :offset="6" class="col-offset">
@@ -18,6 +18,7 @@
           </el-col>
           <el-col :span="2">
             <div class="grid-content" :class="$route.path == '/project' ? 'button-active':''">
+              <span>12</span>
               <router-link to="/project">Project</router-link>
             </div>
           </el-col>
