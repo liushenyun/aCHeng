@@ -111,7 +111,7 @@ export default {
     searchRulerApiFA(id) {
       searchRulerApiF(id)
         .then(res => {
-          let _rule = res.ruler;
+          let _rule = res.ruler || [];
           _rule.forEach(v => {
             if (v.type == "enum") {
               v.checked = [];
