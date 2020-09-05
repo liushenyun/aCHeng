@@ -2,7 +2,7 @@
   <div class="GlobalSearch-outer">
     <el-row>
       <label class="h3-title">Project： </label>
-      <el-select style="width: 240px" v-model="projectValue" size="small" @change="projectChange" filterable placeholder="Please select project first">
+      <el-select style="width: 310px" multiple v-model="projectValue" size="small" @change="projectChange" filterable placeholder="Please select project first">
         <el-option
           v-for="item in projectOptions"
           :key="item.value"
@@ -41,24 +41,25 @@
             :prop="item"
             :label="item"
           ></el-table-column>
-          <el-table-column fixed="right" label="操作" width="120">
+          <el-table-column fixed="right" align='center' label="操作" width="120">
             <template slot="header" slot-scope="scope">
               <el-button
                 icon="el-icon-plus"
                 @click.native.prevent="addAllA(scope.$index, activeSamples)"
-                type="success"
+                type="primary"
                 size="small"
-              >add all</el-button>
+              >Add all</el-button>
             </template>
             <template slot-scope="scope">
               <!-- <i class="el-icon-plus"></i> -->
-              
               <el-button
-                icon="el-icon-plus"
+                class="add-samll"
                 @click.native.prevent="addCat(scope.$index, activeSamples[scope.$index])"
                 type="primary"
                 size="small"
-              ></el-button>
+              >
+                <img src="../../image/btn_add_to.png" alt="">
+              </el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -70,7 +71,7 @@
 <script>
 // @ is an alias to /src
 import { beforeRouteLeave } from "@/common/js/mixin.js";
-import { setCat, getCat } from '@/common/js/ut'
+import { setCat } from '@/common/js/ut'
 import {
   projectsApiF,
   searchRulerApiF,
@@ -85,12 +86,7 @@ export default {
       drawer: false,
       projectActiveMeta: [],
       activeSamples: [],
-      projectOptions: [
-        {
-          value: "选项1",
-          label: "黄金糕"
-        }
-      ],
+      projectOptions: [],
       projectValue: "",
       ruleList: []
     };
@@ -105,16 +101,17 @@ export default {
             label: v.name
           }));
         })
-        .catch(err => {});
+        .catch(() => {});
     },
     projectChange(id) {
-      this.searchRulerApiFA(id);
-      console.log(153, id, this.ruleList);
+      this.searchRulerApiFA({
+        pids: id
+      });
     },
     searchRulerApiFA(id) {
       searchRulerApiF(id)
         .then(res => {
-          let _rule = res.ruler.ruler;
+          let _rule = res.ruler;
           _rule.forEach(v => {
             if (v.type == "enum") {
               v.checked = [];
@@ -124,7 +121,6 @@ export default {
             }
           });
           this.ruleList = _rule;
-          console.log(157, this.ruleList);
         })
         .catch(() => {});
     },
@@ -133,7 +129,6 @@ export default {
         .then((result) => {
           this.projectActiveMeta = result.meta;
           this.activeSamples = result.samples
-          console.log(186, result)
         })
         .catch(() => {});
     },
@@ -159,10 +154,6 @@ export default {
           }
         }
       });
-      console.log(207, {
-        project_id: this.projectValue,
-        filter: _obj
-      })
       this.globalSearchApiFA({
         project_id: this.projectValue,
         filter: _obj
@@ -173,11 +164,8 @@ export default {
         Project: p2.Project,
         SampleID: p2.SampleID
       })
-      console.log(getCat())
-      console.log(p1, p2);
     },
     addAllA(p1, p2) {
-      console.log(172, p1, p2)
       p2.forEach(v => {
         setCat({
           Project: v.Project,

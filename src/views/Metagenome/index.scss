@@ -12,6 +12,18 @@
     color: #2F2725;
     letter-spacing: -0.43px;
   }
+  .mm-table {
+    .add-samll {
+      padding: 4px 6px;
+      background: #E8EBFE;
+      border-radius: 2px;
+      border: 0px solid;
+      img {
+        width: 14px;
+        height: 14px;
+      }
+    }
+  }
   .el-aside {
     padding-left: 20px;
     padding-bottom: 20px;
@@ -36,7 +48,6 @@
   }
   .metahome-tip {
     color: #606266;
-    letter-spacing: -0.39px;
     line-height: 26px;
   }
   .el-checkbox {
@@ -50,7 +61,6 @@
 .el-col .grid-content {
   // line-height: 60px;
 }
-
 .el-aside {
   color: #333;
 }
@@ -69,7 +79,6 @@
 .mm-con-title {
   font-size: 18px;
   color: #2F2725;
-  letter-spacing: -0.43px;
   margin: 30px 0 30px 0;
   font-weight: bolder;
 }

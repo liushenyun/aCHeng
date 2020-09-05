@@ -23,8 +23,11 @@ const oneProjectSearchApi = () => `${Domain}/rest/v1/project/_search`
 const cartDownloadApi = () => `${Domain}/rest/v1/cart/_download`
 const reportBugApi = () => `${Domain}/rest/v1/report_bug`
 const reportMetagenomeApi = () => `${Domain}/rest/v1/report_metagenome`
-const searchRulerApi = (pid) => `${Domain}/rest/v1/project/search_ruler/${pid}`
+// const searchRulerApi = () => `${Domain}/rest/v1/project/search_ruler`
+const searchRulerApi = () => `${Domain}/rest/v1/projects/search_ruler`
 const globalSearchApi = () => `${Domain}/rest/v1/sample/global_search`
+const metadataSummaryApi = (pid) => `${Domain}/rest/v1/project/metadata_summary/${pid}`
+// project/metadata_summary/{pid}
 export {
   projectsApi,
   projectSamplesApi,
@@ -37,5 +40,6 @@ export {
   reportBugApi,
   reportMetagenomeApi,
   searchRulerApi,
-  globalSearchApi
+  globalSearchApi,
+  metadataSummaryApi
 };

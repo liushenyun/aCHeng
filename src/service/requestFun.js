@@ -13,7 +13,8 @@ import {
   reportBugApi,
   reportMetagenomeApi,
   searchRulerApi,
-  globalSearchApi
+  globalSearchApi,
+  metadataSummaryApi
 } from './apiUrl';
 // import Validate from './Validate';
 // import { aesEncrypt } from "../utils/dtAes";
@@ -159,11 +160,11 @@ const reportMetagenomeApiF = (data) => packagePromise((resolve, reject) => {
     })
     .catch(err => reject(err))
 })
-const searchRulerApiF = (id) => packagePromise((resolve, reject) => {
+const searchRulerApiF = (data) => packagePromise((resolve, reject) => {
   fetch({
-    url: searchRulerApi(id),
-    method: 'GET',
-    data: {}
+    url: searchRulerApi(),
+    method: 'POST',
+    data
   })
     .then(msg => {
       resolve(msg)
@@ -175,6 +176,18 @@ const globalSearchApiF = (data) => packagePromise((resolve, reject) => {
     url: globalSearchApi(),
     method: 'POST',
     data
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+
+const metadataSummaryApiF = (pid) => packagePromise((resolve, reject) => {
+  fetch({
+    url: metadataSummaryApi(pid),
+    method: 'GET',
+    data: {}
   })
     .then(msg => {
       resolve(msg)
@@ -198,5 +211,6 @@ export {
   reportBugApiF,
   reportMetagenomeApiF,
   searchRulerApiF,
-  globalSearchApiF
+  globalSearchApiF,
+  metadataSummaryApiF
 }

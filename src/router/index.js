@@ -50,8 +50,3 @@ const DOC_TITLE = {
 }
 VueRouter.afterEach((to, from) => {
 })
-
-// VueRouter.beforeRouteLeave((to, from, next) => {
-//   console.log('leave', to, from, next)
-//     // next()
-// })

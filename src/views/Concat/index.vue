@@ -76,7 +76,6 @@ export default {
       })
         .then(result => {
           this.$message.success('Submit Success')
-          console.log(96, result)
         })
         .catch(() => {});
       // _para = {}
@@ -89,7 +88,6 @@ export default {
         email: this.input2Email
       }).then((res) => {
         this.$message.success('Submit Success')
-        console.log(97, res)
       }).catch(() => {
       })
     }

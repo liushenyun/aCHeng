@@ -2,64 +2,100 @@
   <div class="JY-home">
     <el-container>
       <el-header class="home-header">
-        <el-row>
-          <!-- <el-col :span="4">
-            <div class="grid-content bg-purple">
-              <i class="el-icon-eleme"></i>
-            </div>
-          </el-col> -->
-          <el-col class="company-name" :span="8">
+        <!-- <el-row :gutter="10"> -->
+        <ul class="h-ul">
+          <li>CHIP DATABASE</li>
+          <li :class="$route.path == '/metagenome' ? 'button-active':''">
+            <img v-if="$route.path == '/metagenome'" src="../../image/ic_selected_Metagenome.png" alt="">
+            <img v-else src="../../image/ic_normal_Metagenome.png" alt="">
+            <router-link to="/metagenome">
+              Metagenome
+            </router-link>
+          </li>
+          <li :class="$route.path == '/project' ? 'button-active':''">
+            <img v-if="$route.path == '/project'" src="../../image/ic_selected_Project.png" alt="">
+            <img v-else src="../../image/ic_normal_Project.png" alt="">
+            <router-link to="/project">Project</router-link>
+          </li>
+          <li :class="$route.path == '/metaData' ? 'button-active':''">
+            <img v-if="$route.path == '/metaData'" src="../../image/ic_selected_MetaData.png" alt="">
+            <img v-else src="../../image/ic_normal_MetaData.png" alt="">
+            <router-link to="/metaData">MetaData</router-link>
+          </li>
+          <li :class="$route.path == '/globalSearch' ? 'button-active':''">
+            <img v-if="$route.path == '/globalSearch'" src="../../image/ic_selected_Search.png" alt="">
+            <img v-else src="../../image/ic_normal_Search.png" alt="">
+            <router-link to="/globalSearch">Search</router-link>
+          </li>
+          <li :class="$route.path == '/contact' ? 'button-active':''">
+            <img v-if="$route.path == '/contact'" src="../../image/ic_selected_Contact.png" alt="">
+            <img v-else src="../../image/ic_normal_Contact.png" alt="">
+            <router-link to="/contact">Contact Us</router-link>
+          </li>
+        </ul>
+        <!-- <el-row>
+          <el-col class="company-name" :span="9">
             <div class="grid-content">CHIP DATABASE</div>
           </el-col>
-          <el-col :span="2" :offset="6" class="col-offset">
+          <el-col :span="3" class="col-offset">
             <div class="grid-content" :class="$route.path == '/metagenome' ? 'button-active':''">
-              <router-link to="/metagenome">Metagenome</router-link>
+              <img style="width: 24px;margin-right: 12px" src="../../image/ic_selected_Project.png" alt="">
+              <router-link to="/metagenome">
+                Metagenome
+              </router-link>
             </div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content" :class="$route.path == '/project' ? 'button-active':''">
-              <span>12</span>
+              <img style="width: 24px;margin-right: 12px" src="../../image/ic_selected_Project.png" alt="">
               <router-link to="/project">Project</router-link>
             </div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content" :class="$route.path == '/metaData' ? 'button-active':''">
+              <img style="width: 24px;margin-right: 12px" src="../../image/ic_selected_Project.png" alt="">
               <router-link to="/metaData">MetaData</router-link>
             </div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content" :class="$route.path == '/globalSearch' ? 'button-active':''">
+              <img style="width: 24px;margin-right: 12px" src="../../image/ic_selected_Project.png" alt="">
               <router-link to="/globalSearch">Search</router-link>
             </div>
           </el-col>
-          <el-col :span="2">
+          <el-col :span="3">
             <div class="grid-content" :class="$route.path == '/contact' ? 'button-active':''">
+              <img style="width: 24px;margin-right: 12px" src="../../image/ic_selected_Project.png" alt="">
               <router-link to="/contact">Contact Us</router-link>
             </div>
           </el-col>
-          <!-- <el-col :span="2">
-            <div class="grid-content">Cart</div>
-          </el-col> -->
-        </el-row>
+        </el-row> -->
       </el-header>
       <div class="cart-outer">
         <el-badge :value="cartNum">
-          <el-button type="success" @click="openDrawer" icon="el-icon-s-goods" circle></el-button>
+          <el-button @click="openDrawer" circle>
+            <!-- <img src="../../image/btn_selected_buy.png" alt=""> -->
+            <img src="../../image/btn_normal_buy.png" alt="">
+          </el-button>
         </el-badge>
       </div>
-      <el-drawer title="Cart Information" :visible.sync="drawer" :before-close="handleClose">
+      <el-drawer class="cart-drawer" title="Cart Information" :visible.sync="drawer" :before-close="handleClose">
         <el-container>
           <el-main>
-            <el-table :data="gridData" border="" @selection-change="handleSelectionChange" height="100%">
+            <el-table height="100%" :data="gridData" border="" @selection-change="handleSelectionChange">
               <el-table-column type="selection" width="50"></el-table-column>
               <el-table-column property="SampleID" label="Samples" width="150"></el-table-column>
               <el-table-column property="Project" label="Project" width="200"></el-table-column>
             </el-table>
           </el-main>
-          <el-footer>
+          <el-footer style="height: 80px">
             <el-row>
-              <el-button type="danger" icon="el-icon-delete" @click="delProjectA" circle></el-button>
-              <el-button type="primary" icon="el-icon-download" @click="downLoadA" circle></el-button>
+              <el-button type="danger" @click="delProjectA" circle>
+                <img style="width: 24px;" src="../../image/btn_delete.png" alt="">
+              </el-button>
+              <el-button type="primary" @click="downLoadA" circle>
+                <img style="width: 24px;" src="../../image/ic_Download02.png" alt="">
+              </el-button>
             </el-row>
           </el-footer>
         </el-container>
@@ -96,7 +132,6 @@ export default {
   methods: {
     handleSelectionChange (v) {
       this.checkedGrid = v
-      console.log(95, v)
     },
     cartDownloadApiFA() {
       cartDownloadApiF({
@@ -137,7 +172,6 @@ export default {
           type: 'warning'
         })
         .then(_ => {
-          console.log(132, this.checkedGrid)
           if (this.checkedGrid.length) {
             delCat(this.checkedGrid)
             setTimeout(() => {

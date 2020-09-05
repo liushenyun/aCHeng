@@ -4,7 +4,6 @@ import router from './router/index'
 import store from './store/index'
 import 'element-ui/lib/theme-chalk/index.css';
 
-// import ajaxFun from './service/requestFun'
 import { Button,
   Row,
   Col,
@@ -67,7 +66,6 @@ Vue.use(TabPane);
 Vue.use(Badge);
 Vue.use(Footer);
 Object.assign(Vue.prototype, {
-  // $toast: Toast,
   $confirm: MessageBox.confirm,
   $message: Message,
   $bus: new Vue()

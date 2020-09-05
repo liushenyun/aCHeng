@@ -2,22 +2,40 @@
 .PROJECT-outer {
   padding: 0 8px;
   width: 100%;
-  .search-outer {
-    display: flex;
-    justify-content: flex-end;
-  }
+  // .search-outer {
+  //   display: flex;
+  //   justify-content: flex-end;
+  // }
   .el-input-group{
     width: 300px;
   }
+  .table-title {
+    padding: 26px 0 0 0;
+    font-size: 16px;
+    font-weight: bolder;
+    color: #72767b;
+  }
   .drawer-con {
     padding: 10px 20px;
-  }
-  .tips {
     .mmc-link {
+      display: flex;
+      font-size: 14px;
       margin-bottom: 12px;
-      span, a {
-        margin-right: 30px;
+      span {
+        flex: 1;
+        font-size: 16px;
+        font-weight: bolder;
       }
+      a:nth-of-type(1) {
+        margin: 0 30px;
+      }
+    }
+    .tip {
+      // font-size: 12px;
+      // color: #999;
+      color: #606266;
+      letter-spacing: 0.8px;
+      line-height: 22px;
     }
   }
 }

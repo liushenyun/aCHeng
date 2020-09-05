@@ -6,12 +6,9 @@ const getCat = () => {
 }
 
 const setCat = (data) => {
-    console.log(9, data)
     let _old = getCat()
     _old[data['SampleID']] = data
-    console.log(10, _old)
     localStorage.setItem('CHIP-CART', JSON.stringify(_old))
-    console.log(1222)
     Vue.prototype.$bus.$emit('computedCount', getCat())
 }
 

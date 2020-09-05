@@ -55,6 +55,7 @@ export default {
 .JY-home {
   .el-drawer__body {
     height: 100%;
+    overflow: auto;
   }
   .el-drawer__title {
     margin-bottom: 10px
@@ -67,6 +68,20 @@ export default {
     font-weight: bolder;
   }
 }
+.PROJECT-outer {
+  .drawer-con-wrap {
+    height: 100%;
+    .el-container {
+      height: 100%;
+      .table {
+        height: 100%;
+      }
+    }
+  }
+  // .el-drawer__body {
+  //   overflow: auto;
+  // }
+}
 .Metagenome-outer {
   .aside-card {
     .el-card__body {
@@ -74,12 +89,18 @@ export default {
     }
   }
   .mm-trees-wrap {
+    .el-tree-node {
+      padding: 8px 0;
+    }
     .el-tree-node__label {
       font-size: 16px;
       color: #2F2725;
       text-align: center;
-      font-weight: bolder;
+      // font-weight: bolder;
     }
+  }
+  .el-table .cell {
+    // text-align: center;
   }
 }
 .PROJECT-outer {

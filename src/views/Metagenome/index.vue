@@ -22,8 +22,8 @@
           <el-card shadow="always" style="margin-bottom: 20px">
             <p class="mmc-link" v-if="tabsActiveItem.label">
               <span>{{tabsActiveItem.label}}</span>
-              <el-link :href="tabsActiveItem.link"  target="_blank" type="primary">文献链接</el-link>
-              <el-link type="primary" target="_blank" :href="tabsActiveItem.link">EMBL数据库连接</el-link>
+              <el-link :href="tabsActiveItem.link"  target="_blank" type="primary">Literature Link</el-link>
+              <el-link type="primary" target="_blank" :href="tabsActiveItem.link">EMBL Database Link</el-link>
             </p>
             <p v-else>
             </p>
@@ -67,12 +67,14 @@
                       :prop="item"
                       :label="item"
                     ></el-table-column>
-                    <el-table-column label="操作">
+                    <el-table-column align="center" label="操作">
                       <template slot="header" slot-scope="scope">
-                        <el-button type="primary" icon="el-icon-plus" @click.native.prevent="addAllA(scope.$index, activeSamples)">add all</el-button>
+                        <el-button type="primary" icon="el-icon-plus" @click.native.prevent="addAllA(scope.$index, activeSamples)">Add all</el-button>
                       </template>
                       <template slot-scope="scope">
-                        <el-button size="primary" icon="el-icon-plus" @click.native.prevent="addCat(scope.$index, scope.row)"></el-button>
+                        <el-button class="add-samll" size="small" @click.native.prevent="addCat(scope.$index, scope.row)">
+                          <img src="../../image/btn_add_to.png" alt="">
+                        </el-button>
                       </template>
                     </el-table-column>
                   </el-table>
@@ -131,7 +133,6 @@ export default {
       });
     },
     addAllA(p1, p2) {
-      console.log(172, p1, p2);
       p2.forEach(v => {
         setCat({
           Project: v.Project,
@@ -145,9 +146,6 @@ export default {
       // this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
     },
     handleNodeClick(data, checked) {
-      console.log(this.$refs.tree.getCheckedNodes());
-      console.log(this.$refs.tree.getCurrentKey());
-      console.log(165, data, checked);
       if (checked) {
         this.addTab(data.label, data.id);
       } else {
@@ -155,7 +153,6 @@ export default {
       }
     },
     addTab(targetName, id) {
-      console.log(1606, this.projectsDataChecked);
       if (this.editableTabs.some(v => v.name == targetName)) {
         this.editableTabsValue = targetName;
         return;
@@ -183,6 +180,9 @@ export default {
       }
       this.editableTabsValue = activeName;
       this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+      if (!this.editableTabs.length) {
+        this.tabsActiveItem = {}
+      }
     },
     handleTabsEdit(targetName, action) {
       if (action === "add") {
@@ -218,7 +218,6 @@ export default {
           let { meta = [], samples = [] } = result;
           this.prjectMeta = meta;
           this.projectSamples = samples;
-          console.log(213, result);
         })
         .catch(() => {});
     }
@@ -230,22 +229,13 @@ export default {
         _actvieVal = this.projectsData.filter(v => v.label == nVal);
       }
       this.tabsActiveItem = _actvieVal[0];
-      console.log(224, this.projectsData, nVal, oVal, _actvieVal);
     },
     samplesChecklist(nVal, oVal) {
-      console.log(251, this.projectSamples, nVal, oVal);
       var _list = [];
       this.projectSamples.forEach(v => {
-        // console.log(241, v)
         if (nVal.includes(v.Tags)) {
           _list.push(v);
         }
-        // nVal.forEach(k => {
-        //   console.log(243, v[k]);
-        //   if (v.Tags == k) {
-        //     _list.push(v);
-        //   }
-        // });
       });
       this.activeSamples = _list;
     },
@@ -273,12 +263,6 @@ export default {
         this.projectsData = _list;
       })
       .catch(() => {});
-    // projectSamplesApiF,
-    //   projectsOneSamplesApiF
-    // projectsOneSamplesApiF(1).then((result) => {
-    //   console.log(213, result)
-    // }).catch((err) => {
-    // });
   }
 };
 </script>

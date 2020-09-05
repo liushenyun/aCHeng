@@ -3,7 +3,7 @@
     <el-container>
       <el-header>
         <div class="search-outer">
-          <el-input size="small" placeholder="请输入内容" v-model="metaInput" class="Meta-input-1">
+          <el-input @keyup.enter.native="searchA" size="small" placeholder="请输入内容" v-model="metaInput" class="Meta-input-1">
             <el-button slot="append" icon="el-icon-search" @click="searchA"></el-button>
           </el-input>
           <el-link
@@ -11,8 +11,8 @@
               type="primary"
               target="_blank"
             >
-            <img style="width: 24px" src="../../image/ic_Download.png" alt="">
-            <span>下载全部</span>
+            <img style="width: 24px; margin-right: 4px" src="../../image/ic_Download.png" alt="">
+            <span>Download All</span>
           </el-link>
           <!-- <el-button style="padding: 7px 10px" type="primary" target="_blank" size="mini" icon class="Meta-input-2">
           </el-button> -->
@@ -145,7 +145,6 @@ export default {
   methods: {
     elMenuSelectA(p) {
       this.oneMetadataApiFA(p)
-      console.log(p);
     },
     searchA() {
       if (this.metaInput) {
@@ -153,13 +152,6 @@ export default {
       } else {
         this.metadatasApiFA();
       }
-      
-      console.log(94, this.metaInput);
-    },
-    treeNodeClick(p1, p2, p3) {
-      console.log(1, p1);
-      console.log(2, p2);
-      console.log(3, p3);
     },
     addTab(targetName) {
       let newTabName = ++this.tabIndex + "";
@@ -201,7 +193,6 @@ export default {
       metadatasApiF()
         .then(result => {
           this.metasData = result || [];
-          console.log(121, result);
         })
         .catch(() => {});
     },

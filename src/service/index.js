@@ -17,8 +17,7 @@ axios.interceptors.request.use((config) => {
     }
   }
   return config
-}, (error) => {
-  console.log(error);
+}, () => {
 });
 const _closeLoading = () => { Store.dispatch('showLoading', false) };
 const _openLoading = () => { Store.dispatch('showLoading', true) };
@@ -57,15 +56,14 @@ const fetchs = (options, fun) => {
         setTimeout(_closeLoading, 500);
         let { status, data } = response
         let result = data.data
-          console.log(64, status, data)
-          // debugger
         if (status == 200) {
           resolve(result)
         } else {
-          Vue.prototype.$toast('系统错误')
+          Vue.prototype.$message.error('System Error')
         }
       })
       .catch((error) => {
+        Vue.prototype.$message.error('System Error')
         reject(error)
       })
   })
