@@ -3,6 +3,7 @@ import fetch from './index';
 import packagePromise from './packagePromise'
 import {
   projectsApi,
+  newprojectsApi,
   projectSamplesApi,
   projectsOneSamplesApi,
   metadatasApi,
@@ -47,7 +48,20 @@ const projectsApiF = (data = {}, fun) => packagePromise((resolve, reject) => {
     })
     .catch(err => reject(err))
 })
+// genome-get_projects
+const newprojectsApiF = (data = {}, fun) => packagePromise((resolve, reject) => {
+  fetch({
+    url: newprojectsApi(),
+    method: 'GET',
+    data: {}
+  }, fun)
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
 
+// newprojectsApi
 // genome-get_projects
 const projectSamplesApiF = (pid, fun) => packagePromise((resolve, reject) => {
   fetch({
@@ -201,6 +215,7 @@ const metadataSummaryApiF = (pid) => packagePromise((resolve, reject) => {
 // metadataSsearchApi
 export {
   projectsApiF,
+  newprojectsApiF,
   projectSamplesApiF,
   projectsOneSamplesApiF,
   metadatasApiF,

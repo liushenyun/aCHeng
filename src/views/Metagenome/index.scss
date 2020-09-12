@@ -12,6 +12,52 @@
     color: #2F2725;
     letter-spacing: -0.43px;
   }
+  .mm-trees-wrap {
+    padding: 0 6px;
+    .mm-ul {
+      li:hover {
+        color: #677AFB;
+      }
+      li {
+        cursor: pointer;
+        display: flex;
+        height: 60px;
+        align-items: center;
+        padding:0 20px;
+        span {
+          flex: 1;
+        }
+        img {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+  .meta-data-ul {
+    overflow: hidden;
+    li {
+      display: flex;
+      float: left;
+      min-width: 86px;
+      margin: 0 10px 16px 0;
+      align-items: center;
+      div {
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+      }
+      span {
+        flex: 1;
+        cursor: pointer;
+      }
+      span:hover {
+        color: #677AFB;
+      }
+    }
+  }
+  
   .mm-table {
     .add-samll {
       padding: 4px 6px;
@@ -69,13 +115,6 @@
   color: #333;
   // line-height: 160px;
 }
-// .mm-trees-wrap {
-//   .el-tree-node__label {
-//     font-size: 16px;
-//     color: #2F2725;
-//     text-align: center;
-//   }
-// }
 .mm-con-title {
   font-size: 18px;
   color: #2F2725;

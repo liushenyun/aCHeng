@@ -88,6 +88,9 @@ export default {
       padding: 0;
     }
   }
+  .aside-card.el-card {
+      overflow: auto;
+  }
   .mm-trees-wrap {
     .el-tree-node {
       padding: 8px 0;
@@ -98,9 +101,6 @@ export default {
       text-align: center;
       // font-weight: bolder;
     }
-  }
-  .el-table .cell {
-    // text-align: center;
   }
 }
 .PROJECT-outer {

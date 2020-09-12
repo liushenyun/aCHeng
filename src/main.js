@@ -34,8 +34,14 @@ import { Button,
   Select,
   Option,
   Footer,
-  Divider
+  Divider,
+  Collapse,
+  CollapseItem,
+  Tooltip
 } from 'element-ui';
+Vue.use(Tooltip);
+Vue.use(Collapse);
+Vue.use(CollapseItem);
 Vue.use(Divider);
 Vue.use(Select);
 Vue.use(Option);
@@ -67,6 +73,7 @@ Vue.use(Badge);
 Vue.use(Footer);
 Object.assign(Vue.prototype, {
   $confirm: MessageBox.confirm,
+  $alert: MessageBox.alert,
   $message: Message,
   $bus: new Vue()
 });

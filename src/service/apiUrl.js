@@ -1,8 +1,9 @@
 import { Domain } from '../config/index'
 // genome-get_projects
 const projectsApi = () => `${Domain}/rest/v1/projects`
+const newprojectsApi = () => `${Domain}/rest/v1/newprojects`
 
-// genome-get_samples
+// genome-get_samplesmetagenome_get_new_projects_with_category
 const projectSamplesApi = (pid) => `${Domain}/rest/v1/project/samples/${pid}`
 
 // genome-get_one_project
@@ -30,6 +31,7 @@ const metadataSummaryApi = (pid) => `${Domain}/rest/v1/project/metadata_summary/
 // project/metadata_summary/{pid}
 export {
   projectsApi,
+  newprojectsApi,
   projectSamplesApi,
   projectsOneSamplesApi,
   metadatasApi,
