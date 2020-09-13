@@ -82,6 +82,14 @@ export default {
   //   overflow: auto;
   // }
 }
+.GlobalSearch-outer {
+  .aside-card.el-card {
+      overflow: auto;
+  }
+  .el-container {
+    height: 100%;
+  }
+}
 .Metagenome-outer {
   .aside-card {
     .el-card__body {

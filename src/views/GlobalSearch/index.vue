@@ -1,6 +1,41 @@
 <template>
   <div class="GlobalSearch-outer">
-    <el-row>
+    <el-container>
+      <el-aside width="300px">
+        <el-card class="aside-card" shadow="always" style="height: 100%">
+          <h4>projects</h4>
+          <div class="mm-trees-wrap">
+            <el-collapse>
+              <el-collapse-item  v-for="(item, k) in projectsData" :key="k" :title="item.category" :name="k">
+                <ul class="mm-ul">
+                  <li @click="checkedA(subItem)" v-for="(subItem, j) in item.projects" :key="j"><span>{{subItem.name}}({{subItem.sample_num}})</span><img v-if="subItem.checked" src="../../image/btn_selected_check.png" alt=""><img v-else src="../../image/btn_normal_check.png" alt=""></li>
+                </ul>
+              </el-collapse-item>
+            </el-collapse>
+          </div>
+        </el-card>
+      </el-aside>
+      <el-container>
+        <el-main>
+          <el-card class="box-card" style="height: 100%">
+            <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
+              <el-tab-pane
+                v-for="(item, index) in editableTabs"
+                :key="item.name"
+                :label="item.title"
+                :name="item.name"
+              >
+                <rule-com :project='item' @changeRuler='changeRuler' @allRuler="allRuler"></rule-com>
+              </el-tab-pane>
+            </el-tabs>
+          </el-card>
+        </el-main>
+        <el-footer>
+            <el-button type="primary" @click="searchA">search</el-button>
+        </el-footer>
+      </el-container>
+    </el-container>
+    <!-- <el-row>
       <label class="h3-title">Project： </label>
       <el-select style="width: 310px" multiple v-model="projectValue" size="small" @change="projectChange" filterable placeholder="Please select project first">
         <el-option
@@ -19,7 +54,6 @@
           <el-checkbox v-for="(sub, k) in item.values" :key="k" :label="sub"></el-checkbox>
         </el-checkbox-group>
         <div class="range-outer" v-if="item.type == 'range'">
-          <!-- <label class="rang-label">from</label> -->
           <el-input class="rang-input" type='number' size="mini" placeholder="min" v-model="item.min"></el-input>
           <label class="rang-label">-</label>
           <el-input class="rang-input" type='number' size="mini" placeholder="max" v-model="item.max"></el-input>
@@ -28,19 +62,19 @@
       <el-row style="margin-top: 60px; text-algign: right">
         <el-button type="primary" @click="searchA">search</el-button>
       </el-row>
-    </div>
+    </div> -->
     <el-drawer title="Sample" size="80%" :visible.sync="drawer" :with-header="true">
       <div class="search-table"  style="margin-bottom: 10px">
         <el-table :data="activeSamples" border="" height="100%" style="width: 100%">
-          <el-table-column prop="SampleID" label="Sample" width=""></el-table-column>
-          <el-table-column prop="Tags" label="Tags" width=""></el-table-column>
-          <el-table-column prop="Project" label="Project"></el-table-column>
-          <el-table-column
+          <el-table-column prop="sample_id" label="Sample" width=""></el-table-column>
+          <el-table-column prop="tags" label="Tags" width=""></el-table-column>
+          <el-table-column prop="project" label="Project"></el-table-column>
+          <!-- <el-table-column
             v-for="(item, index) in projectActiveMeta"
             :key="index"
             :prop="item"
             :label="item"
-          ></el-table-column>
+          ></el-table-column> -->
           <el-table-column fixed="right" align='center' label="操作" width="120">
             <template slot="header" slot-scope="scope">
               <el-button
@@ -70,10 +104,12 @@
 
 <script>
 // @ is an alias to /src
+import RuleCom from './RuleCom.vue'
 import { beforeRouteLeave } from "@/common/js/mixin.js";
 import { setCat } from '@/common/js/ut'
 import {
   projectsApiF,
+  newprojectsApiF,
   searchRulerApiF,
   globalSearchApiF
 } from "@/service/requestFun.js";
@@ -88,18 +124,92 @@ export default {
       activeSamples: [],
       projectOptions: [],
       projectValue: "",
-      ruleList: []
+      ruleList: [],
+      projectsData: [],
+      editableTabsValue: '2',
+      editableTabs: [],
+      tabIndex: 2
     };
   },
-  components: {},
+  components: {
+    RuleCom: RuleCom
+  },
   methods: {
+    changeRuler({ id, checkedRule }) {
+      console.log(139, id, checkedRule)
+      this.editableTabs.forEach(v => {
+        if (v.id == id) {
+          v.ruleList = checkedRule
+        }
+      })
+    },
+    allRuler({ id, allRuler }) {
+      this.editableTabs.forEach(v => {
+        if (v.id == id) {
+          v.allRuler = allRuler
+        }
+      })
+      console.log(147, id, allRuler)
+    },
+    checkedA(item) {
+      item.checked = !item.checked
+      if (item.checked) {
+        this.addTab(item.label, item.id);
+      } else {
+        this.removeTab(item.label);
+      }
+    },
+    addTab(targetName, id) {
+      if (this.editableTabs.some(v => v.name == targetName)) {
+        this.editableTabsValue = targetName;
+        return;
+      }
+      this.editableTabs.push({
+        id: id,
+        ruleList: [],
+        title: targetName,
+        name: targetName,
+        content: "New Tab content"
+      });
+      this.editableTabsValue = targetName;
+    },
+    removeTab(targetName) {
+      let tabs = this.editableTabs;
+      let activeName = this.editableTabsValue;
+      if (activeName === targetName) {
+        tabs.forEach((tab, index) => {
+          if (tab.name === targetName) {
+            let nextTab = tabs[index + 1] || tabs[index - 1];
+            if (nextTab) {
+              activeName = nextTab.name;
+            }
+          }
+        });
+      }
+      this.editableTabsValue = activeName;
+      this.editableTabs = tabs.filter(tab => tab.name !== targetName);
+      this.projectsData.forEach(v => {
+        v.projects.forEach(k => {
+          if (k.label == targetName) {
+            k.checked = false
+          }
+        })
+      })
+      if (!this.editableTabs.length) {
+        this.tabsActiveItem = {};
+      }
+    },
     projectsApiFA() {
-      projectsApiF()
+      newprojectsApiF()
         .then(result => {
-          this.projectOptions = result.map(v => ({
-            value: v.id,
-            label: v.name
-          }));
+          let _data = result;
+          _data.forEach(v => {
+            v.projects.forEach(k => {
+              k.checked = false
+              k.label = k.name
+            })
+          })
+          this.projectsData = _data;
         })
         .catch(() => {});
     },
@@ -133,31 +243,38 @@ export default {
         .catch(() => {});
     },
     searchA() {
-      if (!this.projectValue) {
+      if (!this.editableTabs.length) {
         this.$message.warning('Please select project first')
         return
       }
-      this.drawer = true;
-      let _obj = {};
-      let _ruleList = JSON.parse(JSON.stringify(this.ruleList));
-      _ruleList.forEach(v => {
-        if (v.type == "enum") {
-          _obj[v.name] = v.checked;
-        } else if (v.type == "range") {
-          if (!v.min) {
-            _obj[v.name] = {}
-          } else {
-            _obj[v.name] = {
-              min: v.min ? +v.min : "",
-              max: v.max ? +v.max : ""
-            };
-          }
+      let _tabs = JSON.parse(JSON.stringify(this.editableTabs))
+      let _subList = []
+      _tabs.forEach(k => {
+        let _obj = {
+          project_id: k.id,
+          filter: {}
         }
-      });
-      this.globalSearchApiFA({
-        project_id: this.projectValue,
-        filter: _obj
-      });
+        _obj.project_id = k.id
+        k.ruleList.forEach(v => {
+          if (v.type == "enum") {
+            if (v.checked.length) {
+              _obj.filter[v.name] = v.checked;
+            }
+          } else if (v.type == "range") {
+            if (!v.min) {
+              _obj.filter[v.name] = {}
+            } else {
+              _obj.filter[v.name] = {
+                min: v.min ? +v.min : "",
+                max: v.max ? +v.max : ""
+              };
+            }
+          }
+        })
+        _subList.push(_obj)
+      })
+      this.drawer = true;
+      this.globalSearchApiFA(_subList);
     },
     addCat(p1, p2) {
       setCat({

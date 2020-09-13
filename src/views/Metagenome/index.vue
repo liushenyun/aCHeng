@@ -5,22 +5,13 @@
         <el-card class="aside-card" shadow="always" style="height: 100%">
           <h4>projects</h4>
           <div class="mm-trees-wrap">
-            <el-collapse @change="handleChange">
+            <el-collapse>
               <el-collapse-item  v-for="(item, k) in projectsData" :key="k" :title="item.category" :name="k">
                 <ul class="mm-ul">
                   <li @click="checkedA(subItem)" v-for="(subItem, j) in item.projects" :key="j"><span>{{subItem.name}}({{subItem.sample_num}})</span><img v-if="subItem.checked" src="../../image/btn_selected_check.png" alt=""><img v-else src="../../image/btn_normal_check.png" alt=""></li>
                 </ul>
               </el-collapse-item>
             </el-collapse>
-            <!-- <el-tree
-              :data="projectsData"
-              @check-change="handleNodeClick"
-              show-checkbox
-              node-key="id"
-              ref="tree"
-              :default-checked-keys="projectsDataChecked"
-              :props="defaultProps"
-            ></el-tree> -->
           </div>
         </el-card>
       </el-aside>
@@ -51,7 +42,7 @@
                     v-for="(item, index) in tabsActiveItem.samples"
                     :key="index"
                     :label="item.name"
-                  ></el-checkbox>
+                  >{{item.name}}({{item.number}})</el-checkbox>
                 </el-checkbox-group>
                 <el-divider></el-divider>
                 <h6 class="mm-con-title">Metadata</h6>
@@ -116,7 +107,8 @@ import {
   projectsApiF,
   newprojectsApiF,
   projectSamplesApiF,
-  projectsOneSamplesApiF
+  projectsOneSamplesApiF,
+  oneMetadataBynameApiF
 } from "@/service/requestFun.js";
 import { setCat } from "@/common/js/ut";
 
@@ -126,7 +118,7 @@ export default {
   data() {
     return {
       tableData: [],
-      checkList: ["选中且禁用", "复选框 A"],
+      checkList: [],
       samplesChecklist: [],
       MetaChecklist: [],
       editableTabsValue: "2",
@@ -139,16 +131,7 @@ export default {
       projectSamplesList: [],
       projectSamples: [],
       projectsDataChecked: [],
-      projectsData: [
-        {
-          category: "Neurological",
-          projects: [{ name: "GermanPD", checked: false }, { name: "GermanPD", checked: true }]
-        },
-        {
-          category: "Neurological2",
-          projects: [{ name: "GermanPD", checked: true }, { name: "GermanPD", checked: false }]
-        }
-      ],
+      projectsData: [],
       defaultProps: {
         children: "children",
         label: "label"
@@ -157,14 +140,20 @@ export default {
   },
   components: {},
   methods: {
+    oneMetadataBynameApiFA(id) {
+      oneMetadataBynameApiF(id).then(res => {
+        this.$alert(`
+        <p><strong>Unit</strong>: ${res.unit || '--'}</p>
+        <p><strong>Description</strong>: ${res.unit || '--'} </p>
+        `, id, {
+          dangerouslyUseHTMLString: true
+        });
+      }).catch(() => {})
+    },
     showInfo(item) {
-      console.log(item)
-      this.$alert(`<strong>${item.name}</strong>`, item.name, {
-        dangerouslyUseHTMLString: true
-      });
+      this.oneMetadataBynameApiFA(item.name)
     },
     metaClick(item) {
-      console.log(12, item)
       item.checked = !item.checked
       if (item.checked) {
         if (!this.MetaChecklist.includes(item.name)) {
@@ -178,20 +167,15 @@ export default {
       }
     },
     tabClick(p) {
-      console.log(156, p.name, this.editableTabsValue)
+      // console.log(156, p.name, this.editableTabsValue)
     },
     checkedA(item) {
       item.checked = !item.checked
-      console.log(155, item)
       if (item.checked) {
         this.addTab(item.label, item.id);
       } else {
         this.removeTab(item.label);
       }
-      console.log(155, item)
-    },
-    handleChange(val) {
-      console.log(val);
     },
     addCat(p1, p2) {
       setCat({
@@ -207,18 +191,13 @@ export default {
         });
       });
     },
-    handleCheckedCitiesChange(value) {
-      let checkedCount = value.length;
-      // this.checkAll = checkedCount === this.cities.length;
-      // this.isIndeterminate = checkedCount > 0 && checkedCount < this.cities.length;
-    },
-    handleNodeClick(data, checked) {
-      if (checked) {
-        this.addTab(data.label, data.id);
-      } else {
-        this.removeTab(data.label);
-      }
-    },
+    // handleNodeClick(data, checked) {
+    //   if (checked) {
+    //     this.addTab(data.label, data.id);
+    //   } else {
+    //     this.removeTab(data.label);
+    //   }
+    // },
     addTab(targetName, id) {
       if (this.editableTabs.some(v => v.name == targetName)) {
         this.editableTabsValue = targetName;
@@ -232,7 +211,6 @@ export default {
       this.editableTabsValue = targetName;
     },
     removeTab(targetName) {
-      console.log(28, targetName)
       let tabs = this.editableTabs;
       let activeName = this.editableTabsValue;
       if (activeName === targetName) {
@@ -247,7 +225,6 @@ export default {
       }
       this.editableTabsValue = activeName;
       this.editableTabs = tabs.filter(tab => tab.name !== targetName);
-      console.log(223, this.projectsData)
       this.projectsData.forEach(v => {
         v.projects.forEach(k => {
           if (k.label == targetName) {
@@ -257,6 +234,7 @@ export default {
       })
       if (!this.editableTabs.length) {
         this.tabsActiveItem = {};
+        this.editableTabsValue = ''
       }
     },
     handleTabsEdit(targetName, action) {
@@ -294,13 +272,22 @@ export default {
           let { meta = [], samples = [] } = result;
           this.prjectMeta = meta.map(v => ({ name: v, checked: false }));
           this.projectSamples = samples;
+          this.filterActiveSamples(this.samplesChecklist);
         })
         .catch(() => {});
+    },
+    filterActiveSamples(nVal) {
+      var _list = [];
+      this.projectSamples.forEach(v => {
+        if (nVal.includes(v.Tags)) {
+          _list.push(v);
+        }
+      });
+      this.activeSamples = _list;
     }
   },
   watch: {
     editableTabsValue(nVal, oVal) {
-      console.log(264, nVal, oVal)
       let _actvieVal = "";
       if (nVal) {
         this.projectsData.forEach(v => {
@@ -311,22 +298,20 @@ export default {
           })
         })
       }
-      console.log(275, _actvieVal)
       this.tabsActiveItem = _actvieVal;
-      this.projectSamplesApiFA(_actvieVal.id);
+      this.$nextTick(() => {
+        if (_actvieVal) {
+          this.samplesChecklist = _actvieVal.samples.map(v => v.name)
+        }
+      })
+      if (_actvieVal) {
+        this.projectSamplesApiFA(_actvieVal.id);
+      }
     },
     samplesChecklist(nVal, oVal) {
-      console.log(nVal, oVal, this.projectSamples)
-      var _list = [];
-      this.projectSamples.forEach(v => {
-        if (nVal.includes(v.Tags)) {
-          _list.push(v);
-        }
-      });
-      this.activeSamples = _list;
+      this.filterActiveSamples(nVal);
     },
     MetaChecklist(nVal, oVal) {
-      console.log(121)
       this.projectActiveMeta = nVal;
     }
   },

@@ -37,8 +37,10 @@ import { Button,
   Divider,
   Collapse,
   CollapseItem,
-  Tooltip
+  Tooltip,
+  CascaderPanel
 } from 'element-ui';
+Vue.use(CascaderPanel);
 Vue.use(Tooltip);
 Vue.use(Collapse);
 Vue.use(CollapseItem);

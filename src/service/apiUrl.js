@@ -17,6 +17,7 @@ const metadatasSearchApi = () => `${Domain}/rest/v1/metadata/_search`
 
 // metadata-get_one_metadata
 const oneMetadataApi = (metaId) => `${Domain}/rest/v1/metadata/${metaId}`
+const oneMetadataBynameApi = (name) => `${Domain}/rest/v1/metadata/name/${name}`
 
 // rest/v1/project/_search
 const oneProjectSearchApi = () => `${Domain}/rest/v1/project/_search`
@@ -26,6 +27,7 @@ const reportBugApi = () => `${Domain}/rest/v1/report_bug`
 const reportMetagenomeApi = () => `${Domain}/rest/v1/report_metagenome`
 // const searchRulerApi = () => `${Domain}/rest/v1/project/search_ruler`
 const searchRulerApi = () => `${Domain}/rest/v1/projects/search_ruler`
+const searchOneRulerApi = (id) => `${Domain}/rest/v1/project/search_ruler/${id}`
 const globalSearchApi = () => `${Domain}/rest/v1/sample/global_search`
 const metadataSummaryApi = (pid) => `${Domain}/rest/v1/project/metadata_summary/${pid}`
 // project/metadata_summary/{pid}
@@ -42,6 +44,8 @@ export {
   reportBugApi,
   reportMetagenomeApi,
   searchRulerApi,
+  searchOneRulerApi,
   globalSearchApi,
-  metadataSummaryApi
+  metadataSummaryApi,
+  oneMetadataBynameApi
 };

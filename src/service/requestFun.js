@@ -9,11 +9,13 @@ import {
   metadatasApi,
   metadatasSearchApi,
   oneMetadataApi,
+  oneMetadataBynameApi,
   oneProjectSearchApi,
   cartDownloadApi,
   reportBugApi,
   reportMetagenomeApi,
   searchRulerApi,
+  searchOneRulerApi,
   globalSearchApi,
   metadataSummaryApi
 } from './apiUrl';
@@ -125,7 +127,18 @@ const oneMetadataApiF = (id) => packagePromise((resolve, reject) => {
     })
     .catch(err => reject(err))
 })
-
+const oneMetadataBynameApiF = (name) => packagePromise((resolve, reject) => {
+  fetch({
+    url: oneMetadataBynameApi(name),
+    method: 'GET',
+    data: {}
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+// oneMetadataBynameApi
 const oneProjectSearchApiF = (data) => packagePromise((resolve, reject) => {
   fetch({
     url: oneProjectSearchApi(),
@@ -185,6 +198,18 @@ const searchRulerApiF = (data) => packagePromise((resolve, reject) => {
     })
     .catch(err => reject(err))
 })
+const searchOneRulerApiF = (id) => packagePromise((resolve, reject) => {
+  fetch({
+    url: searchOneRulerApi(id),
+    method: 'GET',
+    data: {}
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+// searchOneRulerApi
 const globalSearchApiF = (data) => packagePromise((resolve, reject) => {
   fetch({
     url: globalSearchApi(),
@@ -226,6 +251,8 @@ export {
   reportBugApiF,
   reportMetagenomeApiF,
   searchRulerApiF,
+  searchOneRulerApiF,
   globalSearchApiF,
-  metadataSummaryApiF
+  metadataSummaryApiF,
+  oneMetadataBynameApiF
 }
