@@ -3,15 +3,108 @@
     height: 100%;
     width: 100%;
     padding: 20px;
+    overflow: auto;
+    .get-same {
+        background: #FFFFFF;
+        box-shadow: 0 2px 12px 5px rgba(230,230,230,0.50);
+        border-radius: 2px;
+        border-radius: 2px;
+        flex: 1;
+        padding: 40px;
+    }
     .g-top {
         width: 100%;
         display: flex;
-        height: 300px;
+        height: 400px;
+        margin-bottom: 20px;
+        .gt-left {
+            margin-right: 20px;
+        }
     }
-    .get-same {
-        flex: 1;
+    .gs-title {
+        font-weight: bolder;
+        font-size: 18px;
+        color: #606266;
+        margin-bottom: 30px;
     }
-    .gt-left {
-        margin-right: 20px;
+    .g-bottom {
+        ul {
+            display: flex;
+            justify-content: space-between;
+            li {
+                padding: 23px 30px;
+                margin-right: 36px;
+                flex: 1;
+                height: 150px;
+                background: #F6FEFF;
+                box-shadow: 0 2px 12px 5px rgba(230,230,230,0.50);
+                position: relative;
+                div {
+                    position: absolute;
+                    left: 30px;
+                    top: 23px;
+                    img {
+                        width: 24px;
+                    }
+                    p {
+                        margin-top: 14px;
+                        font-size: 12px;
+                        color: #606266;
+                    }
+                }
+                span {
+                    position: absolute;
+                    right: 30px;
+                    bottom: 23px;
+                    font-size: 50px;
+                    color: #2F2725;
+                }
+
+            }
+            li:nth-of-type(4) {
+                margin-right: 0;
+            }
+        }
+    }
+    .router-wrap:nth-of-type(1) {
+        margin-bottom: 50px;
+    }
+    .router-wrap {
+        display: flex;
+        padding:  0 25px;
+        .router-same:nth-of-type(1) {
+            margin-right: 50px;
+        }
+        .router-same {
+            flex: 1;
+            cursor: pointer;
+            .btn {
+                width: 300px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-image: linear-gradient(180deg, #7D70FF 0%, #473DFF 100%);
+                border-radius: 30px;
+                border-radius: 30px;
+                img {
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 10px;
+                }
+                span {
+                    font-size: 16px;
+                    color: #FFFFFF;
+                }
+            }
+            p {
+                text-align: center;
+                font-family: MicrosoftYaHei;
+                font-size: 16px;
+                color: #606266;
+                line-height: 26px;
+                margin-top: 20px;
+            }
+        }
     }
 }
