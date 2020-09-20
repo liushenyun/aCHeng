@@ -89,6 +89,9 @@ export default {
   .el-container {
     height: 100%;
   }
+  .global-el-main {
+    padding: 0 20px 20px 20px;
+  }
 }
 .Metagenome-outer {
   .aside-card {
@@ -110,6 +113,41 @@ export default {
       // font-weight: bolder;
     }
   }
+}
+.GlobalSearch-outer .search-table,
+.Metagenome-outer .mm-table {
+  .add-all {
+    padding: 6px 8px;
+    border: 1px solid #9CA9FD;
+    background: none;
+    font-size: 14px;
+    color: #473DFF;
+    span {
+      display: flex;
+      align-items: center;
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+      }
+    }
+  }
+  .add-samll {
+    padding: 4px 6px;
+    background: #e8ebfe;
+    border-radius: 2px;
+    border: 0px solid;
+    img {
+      width: 14px;
+      height: 14px;
+    }
+  }
+  .is-cart.add-samll {
+    background: #00E6E9;
+  }
+}
+.el-tooltip__popper {
+  max-width: 200px;
 }
 .PROJECT-outer {
   .pr-table {

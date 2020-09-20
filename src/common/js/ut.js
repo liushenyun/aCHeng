@@ -13,12 +13,14 @@ const setCat = (data) => {
 }
 
 const delCat = (list) => {
+    console.log(16, list)
     let _old = getCat()
     list.forEach(v => {
         delete _old[v['SampleID']]
     });
     localStorage.setItem('CHIP-CART', JSON.stringify(_old))
     Vue.prototype.$bus.$emit('computedCount', getCat())
+    Vue.prototype.$bus.$emit('updatePageCatData', getCat())
 }
 
 export {

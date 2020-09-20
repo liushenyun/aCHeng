@@ -30,6 +30,7 @@ const searchRulerApi = () => `${Domain}/rest/v1/projects/search_ruler`
 const searchOneRulerApi = (id) => `${Domain}/rest/v1/project/search_ruler/${id}`
 const globalSearchApi = () => `${Domain}/rest/v1/sample/global_search`
 const metadataSummaryApi = (pid) => `${Domain}/rest/v1/project/metadata_summary/${pid}`
+const summaryApi = (pid) => `${Domain}/rest/v1/summary`
 // project/metadata_summary/{pid}
 export {
   projectsApi,
@@ -47,5 +48,6 @@ export {
   searchOneRulerApi,
   globalSearchApi,
   metadataSummaryApi,
-  oneMetadataBynameApi
+  oneMetadataBynameApi,
+  summaryApi
 };

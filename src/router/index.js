@@ -18,7 +18,7 @@ const VueRouter = new Router({
         component: Home,
         children: [
             {
-                path: 'general',
+                path: 'index',
                 component: General
             },
             {
@@ -42,7 +42,7 @@ const VueRouter = new Router({
                 component: Concat
             }
         ],
-        redirect: '/general'
+        redirect: '/index'
     }
     // DetailA
   ]

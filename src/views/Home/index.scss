@@ -40,6 +40,16 @@
         width: 100%;
         background: #FFF;
       }
+      li.index.button-active::after {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        content: '';
+        height: 0px;
+        width: 100%;
+        background: #FFF;
+        opacity: 0;
+      }
       li.button-active {
         a{
           color: #FFF;
@@ -106,6 +116,7 @@
 }
 .el-container {
   height: 100%;
+  overflow: auto;
 }
 .el-col .grid-content {
   line-height: 60px;

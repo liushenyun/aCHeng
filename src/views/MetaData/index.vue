@@ -68,58 +68,11 @@ export default {
   mixins: [beforeRouteLeave],
   data() {
     return {
-      checkList: ["选中且禁用", "复选框 A"],
+      checkList: [],
       metaInput: "",
       editableTabsValue: "2",
       metaDetail: {},
-      metasData: [
-        {
-          meta_id: "1d",
-          label: "用户管理",
-          children: [
-            {
-              meta_id: "1-2fff",
-              label: "用户列表",
-              children: [
-                {
-                  meta_id: "1-2-1",
-                  label: "用户列表查询"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          meta_id: "2",
-          label: "角色管理",
-          children: [
-            {
-              meta_id: "1-2-1-1-1-1",
-              label: "用户列表查询"
-            }
-          ]
-        },
-        {
-          meta_id: "3",
-          label: "用户管理",
-          children: [
-            {
-              meta_id: "1-2-1-1-1-1",
-              label: "用户列表查询",
-              children: [
-                {
-                  meta_id: "1-2-1-1-1-1",
-                  label: "用户列表查询"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          meta_id: "4",
-          label: "角色管理"
-        }
-      ],
+      metasData: [],
       editableTabs: [
         {
           title: "Tab 1",

@@ -17,7 +17,8 @@ import {
   searchRulerApi,
   searchOneRulerApi,
   globalSearchApi,
-  metadataSummaryApi
+  metadataSummaryApi,
+  summaryApi
 } from './apiUrl';
 // import Validate from './Validate';
 // import { aesEncrypt } from "../utils/dtAes";
@@ -234,6 +235,18 @@ const metadataSummaryApiF = (pid) => packagePromise((resolve, reject) => {
     .catch(err => reject(err))
 })
 
+const summaryApiF = (pid) => packagePromise((resolve, reject) => {
+  fetch({
+    url: summaryApi(pid),
+    method: 'GET',
+    data: {}
+  })
+    .then(msg => {
+      resolve(msg)
+    })
+    .catch(err => reject(err))
+})
+
 // searchRulerApi
 // reportBugApi,
 //   reportMetagenomeApi
@@ -254,5 +267,6 @@ export {
   searchOneRulerApiF,
   globalSearchApiF,
   metadataSummaryApiF,
-  oneMetadataBynameApiF
+  oneMetadataBynameApiF,
+  summaryApiF
 }

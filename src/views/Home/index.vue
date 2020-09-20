@@ -1,10 +1,14 @@
 <template>
   <div class="JY-home">
-    <el-container>
+    <el-container class="JH-el-comtainer">
       <el-header class="home-header">
         <!-- <el-row :gutter="10"> -->
         <ul class="h-ul">
-          <li>CHIP DATABASE</li>
+          <li :class="$route.path == '/index' ? 'index button-active':''">
+            <router-link to="/index">
+              CHIP DATABASE
+            </router-link>
+          </li>
           <li :class="$route.path == '/metagenome' ? 'button-active':''">
             <img v-if="$route.path == '/metagenome'" src="../../image/ic_selected_Metagenome.png" alt="">
             <img v-else src="../../image/ic_normal_Metagenome.png" alt="">
@@ -73,9 +77,10 @@
       </el-header>
       <div class="cart-outer">
         <el-badge :value="cartNum">
-          <el-button @click="openDrawer" circle>
+          <el-button style="background: #473DF" @click="openDrawer" circle>
             <!-- <img src="../../image/btn_selected_buy.png" alt=""> -->
-            <img src="../../image/btn_normal_buy.png" alt="">
+            <!-- <img src="../../image/btn_normal_buy.png" alt=""> -->
+            <img src="../../image/btn_selected_buyall01.png" alt="">
           </el-button>
         </el-badge>
       </div>
@@ -177,6 +182,9 @@ export default {
             setTimeout(() => {
               this.renderCat();
             }, 10)
+            setTimeout(() => {
+              this.$bus.$emit('updatePageCatData', getCat())
+            }, 100)
           }
         })
         .catch(_ => {});

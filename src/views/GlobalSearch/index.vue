@@ -16,7 +16,7 @@
         </el-card>
       </el-aside>
       <el-container>
-        <el-main>
+        <el-main class="global-el-main">
           <el-card class="box-card" style="height: 100%">
             <el-tabs v-model="editableTabsValue" type="card" closable @tab-remove="removeTab">
               <el-tab-pane
@@ -31,7 +31,7 @@
           </el-card>
         </el-main>
         <el-footer>
-            <el-button type="primary" @click="searchA">search</el-button>
+            <el-button style="margin-left: 20px" type="primary" @click="searchA">search</el-button>
         </el-footer>
       </el-container>
     </el-container>
@@ -63,12 +63,12 @@
         <el-button type="primary" @click="searchA">search</el-button>
       </el-row>
     </div> -->
-    <el-drawer title="Sample" size="80%" :visible.sync="drawer" :with-header="true">
+    <el-drawer title="Sample" size="50%" :visible.sync="drawer" :with-header="true">
       <div class="search-table"  style="margin-bottom: 10px">
         <el-table :data="activeSamples" border="" height="100%" style="width: 100%">
-          <el-table-column prop="sample_id" label="Sample" width=""></el-table-column>
+          <el-table-column prop="SampleID" label="Sample" width=""></el-table-column>
           <el-table-column prop="tags" label="Tags" width=""></el-table-column>
-          <el-table-column prop="project" label="Project"></el-table-column>
+          <el-table-column prop="Project" label="Project"></el-table-column>
           <!-- <el-table-column
             v-for="(item, index) in projectActiveMeta"
             :key="index"
@@ -78,21 +78,26 @@
           <el-table-column fixed="right" align='center' label="操作" width="120">
             <template slot="header" slot-scope="scope">
               <el-button
-                icon="el-icon-plus"
+                class="add-all"
                 @click.native.prevent="addAllA(scope.$index, activeSamples)"
                 type="primary"
                 size="small"
-              >Add all</el-button>
+              >
+                <img src="../../image/btn_normal_buyall02.png" alt="" > 
+                Add all
+              </el-button>
             </template>
             <template slot-scope="scope">
               <!-- <i class="el-icon-plus"></i> -->
               <el-button
                 class="add-samll"
-                @click.native.prevent="addCat(scope.$index, activeSamples[scope.$index])"
+                :class="scope.row.isCat ? 'is-cart' : ''"
+                @click.native.prevent="addCat(scope.$index, scope.row)"
                 type="primary"
                 size="small"
               >
-                <img src="../../image/btn_add_to.png" alt="">
+                <img  v-if="scope.row.isCat" src="../../image/btn_selected_buy02.png" alt="">
+                <img  v-else src="../../image/btn_normal_buy01.png" alt="">
               </el-button>
             </template>
           </el-table-column>
@@ -106,7 +111,7 @@
 // @ is an alias to /src
 import RuleCom from './RuleCom.vue'
 import { beforeRouteLeave } from "@/common/js/mixin.js";
-import { setCat } from '@/common/js/ut'
+import { setCat, getCat, delCat } from '@/common/js/ut'
 import {
   projectsApiF,
   newprojectsApiF,
@@ -136,7 +141,6 @@ export default {
   },
   methods: {
     changeRuler({ id, checkedRule }) {
-      console.log(139, id, checkedRule)
       this.editableTabs.forEach(v => {
         if (v.id == id) {
           v.ruleList = checkedRule
@@ -149,7 +153,6 @@ export default {
           v.allRuler = allRuler
         }
       })
-      console.log(147, id, allRuler)
     },
     checkedA(item) {
       item.checked = !item.checked
@@ -238,7 +241,16 @@ export default {
       globalSearchApiF(data)
         .then((result) => {
           this.projectActiveMeta = result.meta;
-          this.activeSamples = result.samples
+          let _samples = result.samples
+          let _catInfo = getCat() // SampleID
+          _samples.forEach(v => {
+            if (_catInfo[v.SampleID]) {
+              v.isCat = true
+            } else {
+              v.isCat = false
+            }
+          })
+          this.activeSamples = _samples
         })
         .catch(() => {});
     },
@@ -277,24 +289,60 @@ export default {
       this.globalSearchApiFA(_subList);
     },
     addCat(p1, p2) {
-      setCat({
-        Project: p2.Project,
-        SampleID: p2.SampleID
-      })
+      // setCat({
+      //   Project: p2.Project,
+      //   SampleID: p2.SampleID
+      // })
+      if (p2.isCat) {
+        delCat([{
+          Project: p2.Project,
+          SampleID: p2.SampleID
+        }])
+        setTimeout(() => {
+          p2.isCat = false
+        }, 10)
+      } else {
+        setCat({
+          Project: p2.Project,
+          SampleID: p2.SampleID
+        });
+        setTimeout(() => {
+          p2.isCat = true
+        }, 10)
+      }
     },
     addAllA(p1, p2) {
-      p2.forEach(v => {
-        setCat({
-          Project: v.Project,
-          SampleID: v.SampleID
-        })
+      this.$confirm("sure add all", {
+        confirmButtonText: 'sure',
+        cancelButtonText: 'cancel',
+        type: 'warning'
       })
+      .then(_ => {
+          p2.forEach(v => {
+          setCat({
+              Project: v.Project,
+              SampleID: v.SampleID
+            });
+          });
+          setTimeout(() => {
+            this.$bus.$emit('updatePageCatData', getCat())
+          }, 100)
+      })
+      .catch(_ => {});
     }
   },
   watch: {},
   mounted() {
     this.projectsApiFA();
-    // this.searchRulerApiFA(1);
+    this.$bus.$off('updatePageCatData').$on('updatePageCatData', (_catInfo) => {
+      this.activeSamples.forEach(k => {
+        if (_catInfo[k.SampleID]) {
+          k.isCat = true
+        } else {
+          k.isCat = false
+        }
+      })
+    })
   }
 };
 </script>

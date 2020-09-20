@@ -17,9 +17,9 @@
             </el-row> -->
         </div>
         <div class="button-outer">
-            <el-button v-if="isShowCascader" type="success" icon="el-icon-check" @click="checkedRuleA">Sure Rule</el-button>
-            <el-button v-else class="button-add" type="primary" icon="el-icon-edit" @click="toEdit">Add Rule</el-button><label for="" style="color: #999; margin-left: 6px"></label>
-            <el-cascader-panel v-model="checkedRule" v-if="isShowCascader" class="rule-cascader" :options="project.allRuler" :props="{ multiple: true, checkStrictly: true }"></el-cascader-panel>
+            <el-button size='mini' v-if="isShowCascader" type="success" icon="el-icon-check" @click="checkedRuleA">Add Rule</el-button>
+            <el-button size='mini' v-else class="button-add" type="primary" icon="el-icon-edit" @click="toEdit">Add Rule</el-button><label for="" style="color: #999; margin-left: 6px"></label>
+            <el-cascader-panel v-model="checkedRule"  @mouseleave.native.prevent="checkedRuleA()" v-if="isShowCascader" class="rule-cascader" :options="project.allRuler" :props="{ multiple: true, checkStrictly: true }"></el-cascader-panel>
         </div>
     </div>
 </template>
@@ -52,21 +52,15 @@ export default {
   },
   methods: {
       checkedRuleA() {
-          console.log(55, this.checkedRule)
           this.isShowCascader = false
           let _k = this.checkedRule.map(v => v[0])
           let _l = this.project.allRuler.filter(v => _k.includes(v.name))
-          console.log(59, _k)
-          console.log(60, _l)
-          console.log(61, this.project)
           this.$emit('changeRuler', {
               id: this.project.id,
               checkedRule: _l
           })
       },
       toEdit() {
-          console.log(this.item, this.checkedRule)
-          console.log(69, this.project)
           if (this.project.allRuler && this.project.allRuler.length) {
               this.isShowCascader = true
               return
@@ -75,7 +69,6 @@ export default {
       },
       searchOneRulerApiFA(id) {
           searchOneRulerApiF(id).then((result) => {
-            console.log(50, result)
              result.ruler.forEach(v => {
                  v.value = v.name
                  v.label = v.name

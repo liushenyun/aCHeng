@@ -54,6 +54,7 @@ import {
   projectsOneSamplesApiF,
   oneMetadataBynameApiF
 } from "@/service/requestFun.js";
+import { getCat } from '@/common/js/ut'
 
 import MetaCom from './MetaCom.vue'
 
@@ -89,8 +90,8 @@ export default {
     oneMetadataBynameApiFA(id) {
       oneMetadataBynameApiF(id).then(res => {
         this.$alert(`
-        <p><strong>Unit</strong>: ${res.unit || '--'}</p>
-        <p><strong>Description</strong>: ${res.unit || '--'} </p>
+        <p><strong>Unit</strong>： ${res.unit || '--'}</p>
+        <p><strong>Description</strong>： ${res.description || '--'} </p>
         `, id, {
           dangerouslyUseHTMLString: true
         });
@@ -103,7 +104,6 @@ export default {
       // console.log(156, p.name, this.editableTabsValue)
     },
     checkedA(item) {
-      console.log(173, item)
       item.checked = !item.checked
       if (item.checked) {
         // this.addTab(item.label, item.id);
@@ -113,7 +113,6 @@ export default {
       }
     },
     addTab(item) {
-      console.log(116, item)
       let targetName = item.label
       // let id = item.id
       if (this.editableTabs.some(v => v.name == targetName)) {
@@ -202,6 +201,14 @@ export default {
       projectSamplesApiF(id)
         .then(result => {
           let { meta = [], samples = [] } = result;
+          let _catInfo = getCat() // SampleID
+          samples.forEach(v => {
+            if (_catInfo[v.SampleID]) {
+              v.isCat = true
+            } else {
+              v.isCat = false
+            }
+          })
           this.editableTabs.forEach(v => {
             if (v.name == this.editableTabsValue) {
               v.prjectMeta = meta.map(v => ({ name: v, checked: false }));
@@ -234,6 +241,21 @@ export default {
         this.projectsData = _data;
       })
       .catch(() => {});
+      this.$bus.$off('updatePageCatData').$on('updatePageCatData', (_catInfo) => {
+        this.$nextTick(() => {
+          this.editableTabs.forEach(v => {
+            if (v.name == this.editableTabsValue) {
+              v.projectSamples.forEach(k => {
+                if (_catInfo[k.SampleID]) {
+                  k.isCat = true
+                } else {
+                  k.isCat = false
+                }
+              })
+            }
+          })
+        })
+      })
   }
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="mm-con-inner">
-        <h6 class="mm-con-title">Tag</h6>
+        <h6 class="mm-con-title">Filter With Tag</h6>
         <el-checkbox-group v-model="tabsItem.samplesChecklist">
             <el-checkbox
                 v-for="(item, index) in tabsItem.tabTags"
@@ -9,7 +9,7 @@
             >{{item.name}}({{item.number}})</el-checkbox>
         </el-checkbox-group>
         <el-divider></el-divider>
-        <h6 class="mm-con-title">Metadata</h6>
+        <h6 class="mm-con-title">Show More Metadata</h6>
         <div>
             <ul class="meta-data-ul">
                 <li v-for="(item, index) in tabsItem.prjectMeta" :key="index">
@@ -18,13 +18,44 @@
                         <img v-else src="../../image/btn_normal_check.png" alt="">
                     </div>
                     <span @click="showInfo(item)">{{item.name}}</span>
+                    <!-- <el-tooltip class="item" effect="dark" placement="top">
+                      <div slot="content">
+                        <p>UNIT: {{'KG'}}</p>
+                        <p>DES: {{" the gut microbial DNA from 345 Chinese individuals. We identified and validated approximately 60,000 type-2-diabetes-associated markers and established the concept of a metagenomic linkage group, enabling taxonomic species-level analyses. MGWAS analysis showed that patien"}}</p>
+                      </div>
+                      <span @click="showInfo(item)">{{item.name}}</span>
+                    </el-tooltip> -->
                 </li>
             </ul>
         </div>
         <el-divider></el-divider>
         <h6 class="mm-con-title">Sample</h6>
         <div class="mm-table" style="margin-bottom: 10px">
-            <el-table :data="activeSamples" height="350" border="" style="width: 100%;">
+            <el-table :data="activeSamples" height="650" border="" style="width: 100%;">
+              <el-table-column width="120" align="center" label="操作">
+                    <template slot="header" slot-scope="scope">
+                        <el-button
+                            type="primary"
+                            class="add-all"
+                            @click.native.prevent="addAllA(scope.$index, activeSamples)"
+                        >
+                        <!-- <img src="../../image/btn_selected_buyall01.png" alt="" />  -->
+                        <img src="../../image/btn_normal_buyall02.png" alt="" > 
+                        Add all
+                        </el-button>
+                    </template>
+                    <template slot-scope="scope">
+                        <el-button
+                            class="add-samll"
+                            :class="scope.row.isCat ? 'is-cart' : ''"
+                            size="small"
+                            @click.native.prevent="addCat(scope.$index, scope.row)"
+                        >
+                            <img  v-if="scope.row.isCat" src="../../image/btn_selected_buy02.png" alt="">
+                            <img  v-else src="../../image/btn_normal_buy01.png" alt="">
+                        </el-button>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="SampleID" label="Sample" width=""></el-table-column>
                 <el-table-column prop="Tags" label="Tags" width=""></el-table-column>
                 <el-table-column prop="Project" label="Project"></el-table-column>
@@ -34,24 +65,6 @@
                     :prop="item"
                     :label="item"
                 ></el-table-column>
-                <el-table-column align="center" label="操作">
-                    <template slot="header" slot-scope="scope">
-                        <el-button
-                            type="primary"
-                            icon="el-icon-plus"
-                            @click.native.prevent="addAllA(scope.$index, activeSamples)"
-                        >Add all</el-button>
-                    </template>
-                    <template slot-scope="scope">
-                        <el-button
-                            class="add-samll"
-                            size="small"
-                            @click.native.prevent="addCat(scope.$index, scope.row)"
-                        >
-                            <img src="../../image/btn_add_to.png" alt="">
-                        </el-button>
-                    </template>
-                </el-table-column>
             </el-table>
         </div>
         <!-- <el-button type="primary" icon="el-icon-download">下载</el-button> -->
@@ -59,7 +72,7 @@
 </template>
 
 <script>
-import { setCat } from "@/common/js/ut";
+import { setCat, delCat, getCat } from "@/common/js/ut";
 export default {
   name: "MetaCom",
   data() {
@@ -71,7 +84,6 @@ export default {
   watch: {
     tabsItem: {
       handler(nVal, oVal) {
-        console.log(81, nVal, oVal);
         var _list = [];
         nVal.projectSamples.forEach(v => {
           if (nVal.samplesChecklist.includes(v.Tags)) {
@@ -94,18 +106,42 @@ export default {
   },
   methods: {
     addCat(p1, p2) {
-      setCat({
-        Project: p2.Project,
-        SampleID: p2.SampleID
-      });
+      if (p2.isCat) {
+        delCat([{
+          Project: p2.Project,
+          SampleID: p2.SampleID
+        }])
+        setTimeout(() => {
+          p2.isCat = false
+        }, 10)
+      } else {
+        setCat({
+          Project: p2.Project,
+          SampleID: p2.SampleID
+        });
+        setTimeout(() => {
+          p2.isCat = true
+        }, 10)
+      }
     },
     addAllA(p1, p2) {
-      p2.forEach(v => {
-        setCat({
-          Project: v.Project,
-          SampleID: v.SampleID
-        });
-      });
+      this.$confirm("sure add all", {
+        confirmButtonText: 'sure',
+        cancelButtonText: 'cancel',
+        type: 'warning'
+      })
+      .then(_ => {
+          p2.forEach(v => {
+          setCat({
+              Project: v.Project,
+              SampleID: v.SampleID
+            });
+          });
+          setTimeout(() => {
+            this.$bus.$emit('updatePageCatData', getCat())
+          }, 100)
+      })
+      .catch(_ => {});
     },
     showInfo(item) {
       this.$emit("showInfo", item);
@@ -123,6 +159,8 @@ export default {
         }
       }
     }
+  },
+  mounted() {
   }
 };
 </script>
@@ -157,16 +195,6 @@ export default {
     }
   }
 }
-.mm-table {
-  .add-samll {
-    padding: 4px 6px;
-    background: #e8ebfe;
-    border-radius: 2px;
-    border: 0px solid;
-    img {
-      width: 14px;
-      height: 14px;
-    }
-  }
-}
+// .mm-table {
+// }
 </style>
