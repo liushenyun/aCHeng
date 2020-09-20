@@ -286,6 +286,7 @@ export default {
         _subList.push(_obj)
       })
       this.drawer = true;
+      this.activeSamples = []
       this.globalSearchApiFA(_subList);
     },
     addCat(p1, p2) {
